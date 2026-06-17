@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Repos\\CardBattler_UnityToGodot\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E498E2B5-E145-4D77-85A4-4570D70211F1}|UnityToGodotCardBattler.csproj|f:\\repos\\cardbattler_unitytogodot\\scenes\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E498E2B5-E145-4D77-85A4-4570D70211F1}|UnityToGodotCardBattler.csproj|solutionrelative:scenes\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\GameManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scenes\\GameManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\PlayerHand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scenes\\PlayerHand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\Deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scenes\\Deck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E498E2B5-E145-4D77-85A4-4570D70211F1}|UnityToGodotCardBattler.csproj|f:\\repos\\cardbattler_unitytogodot\\resources\\resource scripts\\carddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E498E2B5-E145-4D77-85A4-4570D70211F1}|UnityToGodotCardBattler.csproj|solutionrelative:resources\\resource scripts\\carddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\CardBack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Scenes\\CardBack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\GameManager.cs",
+              "RelativeDocumentMoniker": "Scenes\\GameManager.cs",
+              "ToolTip": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\GameManager.cs",
+              "RelativeToolTip": "Scenes\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-16T02:05:09.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerHand.cs",
+              "DocumentMoniker": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\PlayerHand.cs",
+              "RelativeDocumentMoniker": "Scenes\\PlayerHand.cs",
+              "ToolTip": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\PlayerHand.cs",
+              "RelativeToolTip": "Scenes\\PlayerHand.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAwwDIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T17:22:36.038Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CardBack.cs",
+              "DocumentMoniker": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\CardBack.cs",
+              "RelativeDocumentMoniker": "Scenes\\CardBack.cs",
+              "ToolTip": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\CardBack.cs",
+              "RelativeToolTip": "Scenes\\CardBack.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T15:22:18.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Deck.cs",
+              "DocumentMoniker": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\Deck.cs",
+              "RelativeDocumentMoniker": "Scenes\\Deck.cs",
+              "ToolTip": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\Deck.cs",
+              "RelativeToolTip": "Scenes\\Deck.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAUwD4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-11T14:44:22.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Card.cs",
+              "DocumentMoniker": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\Card.cs",
+              "RelativeDocumentMoniker": "Scenes\\Card.cs",
+              "ToolTip": "F:\\Repos\\CardBattler_UnityToGodot\\Scenes\\Card.cs",
+              "RelativeToolTip": "Scenes\\Card.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAwwC4AAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T03:08:14.6Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CardData.cs",
+              "DocumentMoniker": "F:\\Repos\\CardBattler_UnityToGodot\\Resources\\Resource Scripts\\CardData.cs",
+              "RelativeDocumentMoniker": "Resources\\Resource Scripts\\CardData.cs",
+              "ToolTip": "F:\\Repos\\CardBattler_UnityToGodot\\Resources\\Resource Scripts\\CardData.cs",
+              "RelativeToolTip": "Resources\\Resource Scripts\\CardData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-09T03:07:09.084Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

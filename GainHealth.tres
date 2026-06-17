@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3 uid="uid://dpjpbe86hpfxb"]
+
+[ext_resource type="Texture2D" uid="uid://cy5m0ud6usjur" path="res://Graphics/heartIcon.png" id="1_rhl1f"]
+[ext_resource type="Script" uid="uid://dht3j8nrl7rr5" path="res://Resources/Resource Scripts/CardData.cs" id="1_tyw5l"]
+
+[resource]
+script = ExtResource("1_tyw5l")
+CardName = "Gain Health"
+CardDescription = "Gain 3 Health"
+CardHealth = 3
+ActivationCost = 1
+Type = 1
+Rarity = 1
+AbilityImage = ExtResource("1_rhl1f")

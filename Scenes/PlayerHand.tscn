@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dwjbuf8my523g"]
+
+[ext_resource type="Script" uid="uid://bwi6h0fxy732k" path="res://Scenes/PlayerHand.cs" id="1_ayaey"]
+[ext_resource type="PackedScene" uid="uid://bau1cepgcwalg" path="res://Scenes/Card.tscn" id="2_qnxk0"]
+
+[node name="PlayerHand" type="Node2D" unique_id=727858783]
+script = ExtResource("1_ayaey")
+baseCard = ExtResource("2_qnxk0")
+
+[node name="CardSlots" type="Node2D" parent="." unique_id=1852715666]
+position = Vector2(320, 320)
+
+[node name="Slot1" type="Node2D" parent="CardSlots" unique_id=233272749]
+position = Vector2(-110, 0)
+
+[node name="Slot2" type="Node2D" parent="CardSlots" unique_id=1220725614]
+position = Vector2(-55, 0)
+
+[node name="Slot3" type="Node2D" parent="CardSlots" unique_id=1336740038]
+
+[node name="Slot4" type="Node2D" parent="CardSlots" unique_id=2138451244]
+position = Vector2(55, 0)
+
+[node name="Slot5" type="Node2D" parent="CardSlots" unique_id=956140014]
+position = Vector2(110, 0)

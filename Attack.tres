@@ -1,0 +1,13 @@
+[gd_resource type="Resource" format=3 uid="uid://drdpa60cop3tl"]
+
+[ext_resource type="Texture2D" uid="uid://b7qna2ypy4r32" path="res://Graphics/cardAbilityImage.png" id="1_wi51l"]
+[ext_resource type="Script" uid="uid://dht3j8nrl7rr5" path="res://Resources/Resource Scripts/CardData.cs" id="1_wigp4"]
+
+[resource]
+script = ExtResource("1_wigp4")
+CardName = "This is an Attack Card"
+CardDescription = "Attack for 9"
+CardDamage = 9
+ActivationCost = 7
+Type = 1
+AbilityImage = ExtResource("1_wi51l")

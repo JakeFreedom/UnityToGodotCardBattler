@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://bau1cepgcwalg"]
+
+[ext_resource type="Script" uid="uid://dffdcs83h8yoq" path="res://Scenes/Card.cs" id="1_1geux"]
+[ext_resource type="Texture2D" uid="uid://bto1g257r3iwi" path="res://Graphics/cardBack-Red.png" id="1_h8wm0"]
+[ext_resource type="Texture2D" uid="uid://jjnqcriour7v" path="res://Graphics/cardTitleBackGround.png" id="2_3m7nw"]
+[ext_resource type="Texture2D" uid="uid://ck5atub4e8okb" path="res://Graphics/cardCostBackGround.png" id="3_kphy1"]
+[ext_resource type="Texture2D" uid="uid://gjtj1rltsxaa" path="res://Graphics/cardTextFrame.png" id="4_3m7nw"]
+[ext_resource type="Texture2D" uid="uid://b8i5envmg5517" path="res://Graphics/cardAbilityBackGround.png" id="5_wejov"]
+[ext_resource type="Texture2D" uid="uid://b7qna2ypy4r32" path="res://Graphics/cardAbilityImage.png" id="6_c6tr3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wejov"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c6tr3"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_1geux"]
+font_size = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_kphy1"]
+font_size = 9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1geux"]
+size = Vector2(78, 110)
+
+[node name="Card" type="Node2D" unique_id=2114403323 node_paths=PackedStringArray("CardName", "CardDescription", "AbilityImage")]
+z_as_relative = false
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_1geux")
+CardName = NodePath("TitleBackGround/Title")
+CardDescription = NodePath("TextFrame/Description")
+AbilityImage = NodePath("AbilityBackGround/AbilityImage")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=589173835]
+y_sort_enabled = true
+texture = ExtResource("1_h8wm0")
+
+[node name="TitleBackGround" type="Sprite2D" parent="." unique_id=864627746]
+material = SubResource("CanvasItemMaterial_wejov")
+position = Vector2(6, -50)
+scale = Vector2(0.8, 0.5)
+texture = ExtResource("2_3m7nw")
+
+[node name="Title" type="Label" parent="TitleBackGround" unique_id=2048114388]
+custom_minimum_size = Vector2(95, 0)
+offset_left = -51.25
+offset_top = -12.0
+offset_right = 43.75
+offset_bottom = 11.0
+text = "[card title]"
+label_settings = SubResource("LabelSettings_c6tr3")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CostBackGround" type="Sprite2D" parent="." unique_id=1062096170]
+position = Vector2(-36, -50)
+texture = ExtResource("3_kphy1")
+
+[node name="Cost" type="Label" parent="CostBackGround" unique_id=569149613]
+custom_minimum_size = Vector2(6, 5)
+offset_left = -9.5
+offset_top = -9.0
+offset_right = 9.475
+offset_bottom = 8.950001
+theme_override_font_sizes/font_size = 4
+text = "[1]"
+label_settings = SubResource("LabelSettings_1geux")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextFrame" type="Sprite2D" parent="." unique_id=1615558593]
+position = Vector2(0, 34)
+scale = Vector2(0.824, 0.373)
+texture = ExtResource("4_3m7nw")
+
+[node name="Description" type="Label" parent="TextFrame" unique_id=411069540]
+offset_left = -38.0
+offset_top = -53.619
+offset_right = 39.0
+offset_bottom = 51.381
+text = "This card does this effect and nothing else as long as the stack in empty."
+label_settings = SubResource("LabelSettings_kphy1")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="AbilityBackGround" type="Sprite2D" parent="." unique_id=401064352]
+position = Vector2(0, -15.999999)
+scale = Vector2(0.649, 0.362)
+texture = ExtResource("5_wejov")
+
+[node name="AbilityImage" type="Sprite2D" parent="AbilityBackGround" unique_id=618390613]
+position = Vector2(0, -3.8146973e-06)
+scale = Vector2(3, 3)
+texture = ExtResource("6_c6tr3")
+
+[node name="MouseHoverArea" type="Area2D" parent="." unique_id=584586379]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseHoverArea" unique_id=973908529]
+shape = SubResource("RectangleShape2D_1geux")

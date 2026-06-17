@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dsuniagi0ycro"]
+
+[ext_resource type="Texture2D" uid="uid://bw6kxjuwl3b1d" path="res://Graphics/SwordCardBack.png" id="1_65vau"]
+[ext_resource type="Script" uid="uid://bgac5x1jtni4u" path="res://Scenes/CardBack.cs" id="1_m5c0n"]
+
+[node name="CardBack" type="Node2D" unique_id=1333949788]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_m5c0n")
+
+[node name="Graphic" type="Sprite2D" parent="." unique_id=1600039874]
+texture = ExtResource("1_65vau")
+
+[node name="DrawButton" type="Button" parent="." unique_id=719494505]
+offset_left = -25.0
+offset_top = -49.0
+offset_right = 25.0
+offset_bottom = 51.0
+flat = true

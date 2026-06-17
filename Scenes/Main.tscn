@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://0mg7eyvmkxju"]
+
+[ext_resource type="Script" uid="uid://dnvhiu1iq52sw" path="res://Scenes/GameManager.cs" id="1_kln2b"]
+[ext_resource type="PackedScene" uid="uid://ih7vlpu34wrg" path="res://Scenes/Deck.tscn" id="2_idj7w"]
+[ext_resource type="PackedScene" uid="uid://dwjbuf8my523g" path="res://Scenes/PlayerHand.tscn" id="2_kln2b"]
+
+[node name="Main" type="Node2D" unique_id=445645174 groups=["Main"]]
+script = ExtResource("1_kln2b")
+
+[node name="Deck" parent="." unique_id=118502293 instance=ExtResource("2_idj7w")]
+position = Vector2(581, 312)
+
+[node name="PlayerHand" parent="." unique_id=727858783 node_paths=PackedStringArray("deck") instance=ExtResource("2_kln2b")]
+deck = NodePath("../Deck")

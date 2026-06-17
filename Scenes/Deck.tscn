@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ih7vlpu34wrg"]
+
+[ext_resource type="Script" uid="uid://hyu4jnogf4dj" path="res://Scenes/Deck.cs" id="1_y1pkx"]
+[ext_resource type="Resource" uid="uid://drdpa60cop3tl" path="res://Attack.tres" id="2_ug7lp"]
+[ext_resource type="Resource" uid="uid://dpjpbe86hpfxb" path="res://GainHealth.tres" id="3_aj2l2"]
+[ext_resource type="PackedScene" uid="uid://dsuniagi0ycro" path="res://Scenes/CardBack.tscn" id="4_ug7lp"]
+
+[node name="Deck" type="Node2D" unique_id=118502293]
+script = ExtResource("1_y1pkx")
+cardData = Array[Resource]([ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2")])
+cardBack = ExtResource("4_ug7lp")
+
+[node name="CardDeck" type="Node2D" parent="." unique_id=1761109268]
