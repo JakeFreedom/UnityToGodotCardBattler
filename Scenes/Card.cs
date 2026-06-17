@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+//Making a comment to see if we are on the correct repo.
 public partial class Card : Node2D
 {
 	[Export] CardData cardData;
