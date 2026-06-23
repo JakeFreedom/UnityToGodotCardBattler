@@ -15,6 +15,8 @@ public partial class PlayerHand : Node2D
 	private List<CardData> playerHand = new List<CardData>();
 	private List<Node2D> cardSlots = new List<Node2D>();
 
+	private DiscardPile dp;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -26,11 +28,10 @@ public partial class PlayerHand : Node2D
 		}
 		//GD.Print(cardSlots.Count);
 		LoadStartingHand();
+
+		dp = GetParent().GetNode<DiscardPile>("DiscardPile") as DiscardPile;
+		
 	}
-    public override void _Process(double delta)
-    {
-	
-    }
 
 	//This I don't think needs any checks. Only thing right now I can think of is if we introduce the mulligan or something along those lines
 	private void LoadStartingHand()
@@ -48,17 +49,26 @@ public partial class PlayerHand : Node2D
 
 	private void DrawToScreen()
 	{
-		GD.Print("Draw to Screen");
+		//GD.Print("Draw to Screen");
 		foreach (CardData drawnCard in playerHand)
 		{
 			Card card = baseCard.Instantiate<Card>() as Card;
 			int emptyIndex = cardSlots.FindIndex(item => item.GetChildCount() == 0); //Get the first slot that doesn't have a child
 			cardSlots[emptyIndex].AddChild(card);
-			card.SetupCard(drawnCard);
+			card.SetupCard(drawnCard, GameManager.Instance.GetNextCardIndex);
+            card.CardWasPlayed += Card_CardWasPlayed;
 		}
 	}
 
-	private int GetNextCardSlot()
+    private void Card_CardWasPlayed(Card card)
+    {
+		playerHand.Remove(card.GetCardData());
+		card.CallDeferred("queue_free");
+		//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
+		dp.Discard(card.GetCardData(), card);
+    }
+
+    private int GetNextCardSlot()
 	{
         int emptyIndex = cardSlots.FindIndex(item => item.GetChildCount() == 0); //Get the first slot that doesn't have a child
 		return emptyIndex;

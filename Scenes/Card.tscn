@@ -20,10 +20,9 @@ font_size = 6
 font_size = 9
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1geux"]
-size = Vector2(78, 110)
+size = Vector2(62, 110)
 
 [node name="Card" type="Node2D" unique_id=2114403323 node_paths=PackedStringArray("CardName", "CardDescription", "AbilityImage")]
-z_as_relative = false
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_1geux")
 CardName = NodePath("TitleBackGround/Title")
@@ -95,4 +94,5 @@ texture = ExtResource("6_c6tr3")
 [node name="MouseHoverArea" type="Area2D" parent="." unique_id=584586379]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseHoverArea" unique_id=973908529]
+position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_1geux")

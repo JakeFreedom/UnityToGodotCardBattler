@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b3w1grka8ssjp"]
+
+[ext_resource type="Script" uid="uid://u0jkp48o04te" path="res://Scenes/PlayZone.cs" id="1_xb1ij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v73wp"]
+size = Vector2(514, 124)
+
+[node name="PlayZone" type="Node2D" unique_id=1702377475]
+script = ExtResource("1_xb1ij")
+
+[node name="PlayZoneArea" type="Area2D" parent="." unique_id=1424342833]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayZoneArea" unique_id=1029839404]
+position = Vector2(247, 52)
+shape = SubResource("RectangleShape2D_v73wp")
