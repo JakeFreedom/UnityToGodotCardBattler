@@ -22,6 +22,8 @@ font_size = 9
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1geux"]
 size = Vector2(62, 110)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_c6tr3"]
+
 [node name="Card" type="Node2D" unique_id=2114403323 node_paths=PackedStringArray("CardName", "CardDescription", "AbilityImage")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_1geux")
@@ -96,3 +98,9 @@ texture = ExtResource("6_c6tr3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseHoverArea" unique_id=973908529]
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_1geux")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=191377396]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=692560430]
+shape = SubResource("CircleShape2D_c6tr3")

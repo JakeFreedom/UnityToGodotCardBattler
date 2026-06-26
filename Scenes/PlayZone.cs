@@ -18,7 +18,7 @@ public partial class PlayZone : Node2D
         if(otherArea.GetParent() is Card)
         {
             Card card = (Card)otherArea.GetParent();
-            GD.Print($"Card {card.GetCardName()} has left the play zone.");
+            //GD.Print($"Card {card.GetCardName()} has left the play zone.");
         }
     }
 

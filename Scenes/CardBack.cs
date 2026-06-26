@@ -13,6 +13,7 @@ public partial class CardBack : Node2D
 
     private void DrawButton_Pressed()
     {
+        //GD.Print("Draw Button Pressed");
         //Signal to interested parties
         EmitSignal("DrawButtonClick");
 

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dwjbuf8my523g" path="res://Scenes/PlayerHand.tscn" id="2_kln2b"]
 [ext_resource type="PackedScene" uid="uid://b3w1grka8ssjp" path="res://Scenes/PlayZone.tscn" id="4_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://d208ia7jxfvi4" path="res://Scenes/DiscardPile.tscn" id="5_pbw6q"]
+[ext_resource type="PackedScene" uid="uid://c4j1tc5hcjt1o" path="res://Scenes/PlayerPointer.tscn" id="6_v1gob"]
 
 [node name="Main" type="Node2D" unique_id=445645174 groups=["Main"]]
 script = ExtResource("1_kln2b")
@@ -20,3 +21,5 @@ position = Vector2(135, 87)
 
 [node name="DiscardPile" parent="." unique_id=1912530071 instance=ExtResource("5_pbw6q")]
 position = Vector2(520, 312)
+
+[node name="PlayerPointer" parent="." unique_id=1345020880 instance=ExtResource("6_v1gob")]

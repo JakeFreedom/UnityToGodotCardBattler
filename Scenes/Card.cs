@@ -55,7 +55,7 @@ public partial class Card : Node2D
 			GameManager.Instance.CardBeingDraggedByID = this.cardID;
 			ZIndex = 1;
 			GlobalScale = new Vector2(1.0f, 1.0f);
-			GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + -40);
+			//GlobalPosition = new Vector2(GlobalPosition.X, GlobalPosition.Y + -40);
 		}
 	}
 

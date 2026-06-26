@@ -7,7 +7,7 @@ public partial class DiscardPile : Node2D
     [Export]
     private PackedScene baseCard;
 
-
+    private Node2D zone;
     //This will be very similar to the deck class
     List<CardData> discardedCards;
     //private CardData m_cardData;
@@ -18,6 +18,7 @@ public partial class DiscardPile : Node2D
         //Find the discard Mouse detector
 
         GetNode<Area2D>("DiscardMouseDetector").MouseEntered += DiscardPile_AreaEntered;
+        zone = GetNode<Node2D>("Zone");
     }
 
     private void DiscardPile_AreaEntered()
@@ -52,10 +53,11 @@ public partial class DiscardPile : Node2D
         {
             Card card = baseCard.Instantiate() as Card;
             card.GetNode<Area2D>("MouseHoverArea").ProcessMode = ProcessModeEnum.Disabled;//This will disable any card interaction while in the graveyard. <-- This will cause issues. We need to figure out how to do the raycast.
-            GetNode<Node2D>("Zone").AddChild(card);
-            card.GlobalPosition = new Vector2(zone.GlobalPosition.X + (loopIndex * 1.5f), zone.GlobalPosition.Y + (loopIndex * 1.5f));
+            zone.CallDeferred(MethodName.AddChild, (card));
+            card.GlobalPosition = new Vector2(zone.Position.X + (loopIndex * 1.5f), zone.Position.Y + (loopIndex * 1.5f));
             card.SetupCard(c, 0);
             loopIndex++;
+            //GD.Print("Adding card to discard pile");
         }
     }
     private void ClearCardsFromZone() {
