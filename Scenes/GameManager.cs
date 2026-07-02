@@ -10,6 +10,13 @@ public partial class GameManager : Node2D
     private int CardIndex = 0;
     public static GameManager Instance { get; private set; }
 
+    public static Action<CardData> OnCardPlayed;
+
+    public override void _Ready()
+    {
+        GD.Print("ready");
+    }
+
     public override void _Notification(int what)
     {
         if(what == NotificationSceneInstantiated)
@@ -46,5 +53,10 @@ public partial class GameManager : Node2D
     public int GetNextCardIndex { get { return CardIndex++; } }
 
     public int CardBeingDraggedByID { get {  return CardIDBeingDragged; }  set { CardIDBeingDragged = value; } }
+
+    public static void CardPlayed(CardData cardData)
+    {
+        OnCardPlayed?.Invoke(cardData);
+    }
 
 }

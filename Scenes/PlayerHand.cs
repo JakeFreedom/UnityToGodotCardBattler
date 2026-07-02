@@ -90,6 +90,7 @@ public partial class PlayerHand : Node2D
 		//The newly drawn card will always be to the far right. If there are empty slots.
 		//ClearSlots();
 		DrawToScreen();
+		GameManager.CardPlayed(card.GetCardData());
     }
 
     private int GetNextCardSlot()
