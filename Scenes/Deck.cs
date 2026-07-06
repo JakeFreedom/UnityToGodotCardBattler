@@ -22,7 +22,7 @@ public partial class Deck : Node2D
 	}
 
 
-	public CardData Draw()
+	public new CardData Draw()
 	{
 		//GD.Print("Drawing a card");
 		//We also need to know if we have card slots open: IE: is our hand full.

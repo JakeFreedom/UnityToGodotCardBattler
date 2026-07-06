@@ -2,58 +2,50 @@ using Godot;
 using System;
 using System.Runtime.CompilerServices;
 
-public partial class HealthBar : VBoxContainer
+public partial class HealthBar : Control
 {
 	// private Control healthIcon;
 	[Export]
 	private int CurrentHealth;
 	[Export]
 	private int MaxHealth;
+
+	[Export]
+	private PackedScene heartIcon;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		// healthIcon = 
-		// healthIcon = healthIcon.Duplicate() as Control;
-		// GetNode<HBoxContainer>("HBoxContainer").AddChild(healthIcon);
 		GameManager.OnCardPlayed += CardPlayed;
-		// HealthChanged(30);
 		ReDrawHealthHearts();
 	}
 
 
 	private void HealthChanged(int healthAmount)
 	{
+		if(healthAmount + CurrentHealth <= 0)
+			{
+				GD.Print("Player is dead");
+				CurrentHealth = 0;
+				ReDrawHealthHearts();
+				return;
+			}
+
 		if(healthAmount + CurrentHealth > MaxHealth)
-		{
 			CurrentHealth = MaxHealth;
-			ReDrawHealthHearts();
-
-		}
 		else
-		{
-
-		CurrentHealth += healthAmount;
+			CurrentHealth += healthAmount;
+		
 		ReDrawHealthHearts();
-			
-
-		}
 	}
 
 	private void ReDrawHealthHearts()
 	{
-		GD.Print($"Current Health{CurrentHealth}");
-		//Get a reference to the heart icon
-		Control heartIcon = GetNode<Control>("MarginContainer/HBoxContainer/HealthIcon");
-		//Clear all children
-	 	GetNode<HBoxContainer>("MarginContainer/HBoxContainer").GetChildren().Clear();
-		GD.Print(GetNode<HBoxContainer>("MarginContainer/HBoxContainer").GetChildren().Count);
+		ClearHearts();
 		//Add a child for each health point
 		for(int x = CurrentHealth;  x>0; x--)
 		{
-			GD.Print($"X={x}");
-			heartIcon = heartIcon.Duplicate() as Control;
-			heartIcon.Visible = true;
-			//GetNode<HBoxContainer>("MarginContainer/HBoxContainer").AddChild(heartIcon);
+			var healthIcon = heartIcon.Instantiate();
+			GetNode<HBoxContainer>("MarginContainer/HBoxContainer").AddChild(healthIcon);
 		}
 	}
 	
@@ -72,7 +64,18 @@ public partial class HealthBar : VBoxContainer
 			HealthChanged(cd.CardHealth);
 
 		}
+
+		if(cd.CardDamage>0)
+		{
+			HealthChanged(-cd.CardDamage);
+		}
 			// GD.Print("This was a heal card, simply because we looked at Card Health.");
 			//This is a horrible method for a card decision tree.
+	}
+
+	private void ClearHearts()
+	{
+		foreach(Node n in GetNode<HBoxContainer>("MarginContainer/HBoxContainer").GetChildren())
+			n.CallDeferred("queue_free");		
 	}
 }

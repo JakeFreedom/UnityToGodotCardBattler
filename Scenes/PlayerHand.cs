@@ -29,18 +29,20 @@ public partial class PlayerHand : Node2D
 			cardSlots.Add((Node2D)node);
 		}
 		//GD.Print(cardSlots.Count);
+
 		LoadStartingHand();
 
 		dp = GetParent().GetNode<DiscardPile>("DiscardPile") as DiscardPile;
 		
 	}
 
+	//Get Called from deck
 	public void AddDrawnCardToHand(CardData card)
 	{
 		//GD.Print($"Add {card.CardName} to hand.");
 		//GD.Print("Adding card to hand");
 		playerHand.Add(card);
-		DrawToScreen();
+		CallDeferred("DrawToScreen");
 	}
 
 	//This I don't think needs any checks. Only thing right now I can think of is if we introduce the mulligan or something along those lines
@@ -65,13 +67,14 @@ public partial class PlayerHand : Node2D
 		foreach (CardData drawnCard in playerHand)
 		{
 			Card card = baseCard.Instantiate<Card>() as Card;
-			int emptyIndex = cardSlots.FindIndex(item => item.GetChildCount() == 0); //Get the first slot that doesn't have a child
+			int emptyIndex = GetNextCardSlot();//cardSlots.FindIndex(item => item.GetChildCount() == 0); //Get the first slot that doesn't have a child
 			//GD.Print($"Card {drawnCard.CardName} was put into slot {emptyIndex}. Player hand size is: {playerHand.Count}");
 			if (emptyIndex == -1)
 				return;
 
-			GD.Print("Hand Card Drawn");
+			//GD.Print("Hand Card Drawn");
 			cardSlots[emptyIndex].AddChild(card);
+			// cardSlots[emptyIndex].CallDeferred("add_child", card);
 			//cardSlots[emptyIndex].CallDeferred("add_child", card);
 			card.SetupCard(drawnCard, GameManager.Instance.GetNextCardIndex);
 			card.CardWasPlayed -= Card_CardWasPlayed;
@@ -90,7 +93,7 @@ public partial class PlayerHand : Node2D
 		//This will keep all the card to the left side of that player hand, not allowing for empty slots.
 		//The newly drawn card will always be to the far right. If there are empty slots.
 		//ClearSlots();
-		DrawToScreen();
+		CallDeferred("DrawToScreen");
 		GameManager.CardPlayed(card.GetCardData());
     }
 
