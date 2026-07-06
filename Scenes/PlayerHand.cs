@@ -70,6 +70,7 @@ public partial class PlayerHand : Node2D
 			if (emptyIndex == -1)
 				return;
 
+			GD.Print("Hand Card Drawn");
 			cardSlots[emptyIndex].AddChild(card);
 			//cardSlots[emptyIndex].CallDeferred("add_child", card);
 			card.SetupCard(drawnCard, GameManager.Instance.GetNextCardIndex);

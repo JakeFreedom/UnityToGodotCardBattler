@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b8nb5wboa6tsk"]
+
+[ext_resource type="Texture2D" uid="uid://cy5m0ud6usjur" path="res://Graphics/heartIcon.png" id="1_1f0m8"]
+[ext_resource type="Script" uid="uid://vl8v535ijtds" path="res://Scenes/HealthBar.cs" id="1_25q3q"]
+
+[sub_resource type="Theme" id="Theme_25q3q"]
+
+[node name="HealthBar" type="VBoxContainer" unique_id=1586761528]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 10.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_25q3q")
+CurrentHealth = 5
+MaxHealth = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1294177166]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1736643190]
+layout_mode = 2
+size_flags_vertical = 4
+theme = SubResource("Theme_25q3q")
+theme_override_constants/separation = 15
+
+[node name="HealthIcon" type="Control" parent="MarginContainer/HBoxContainer" unique_id=1318343293]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/HBoxContainer/HealthIcon" unique_id=233428601]
+position = Vector2(-3, 3)
+texture = ExtResource("1_1f0m8")

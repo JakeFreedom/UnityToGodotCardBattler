@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dbigc62dnvflw" path="res://Scenes/PlayerCharacter.cs" id="1_5gnj7"]
 [ext_resource type="Texture2D" uid="uid://cluf8xjkogve4" path="res://Resources/Hero Knight/Hero Knight/Sprites/Idle.png" id="1_v7sut"]
 [ext_resource type="Texture2D" uid="uid://tly6vctcg66y" path="res://Resources/Hero Knight/Hero Knight/Sprites/Attack1.png" id="2_5gnj7"]
+[ext_resource type="Texture2D" uid="uid://cy5m0ud6usjur" path="res://Graphics/heartIcon.png" id="4_mdaju"]
 
 [sub_resource type="Animation" id="Animation_mdaju"]
 resource_name = "Player_ATTACK"
@@ -94,6 +95,19 @@ _data = {
 &"RESET": SubResource("Animation_2getf")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r4x55"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 25.51
+angle_min = -37.19999
+angle_max = 37.200012
+direction = Vector3(0, 0, 0)
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(90, -98, 0)
+scale_over_velocity_min = 0.099999994
+scale_over_velocity_max = 1.0
+
 [node name="PlayerCharacter" type="Node2D" unique_id=1556509075]
 script = ExtResource("1_5gnj7")
 
@@ -108,3 +122,11 @@ hframes = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1774944272]
 libraries/ = SubResource("AnimationLibrary_mdaju")
+
+[node name="HealEffect" type="GPUParticles2D" parent="." unique_id=666134100]
+emitting = false
+amount = 3
+texture = ExtResource("4_mdaju")
+lifetime = 0.61
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_r4x55")

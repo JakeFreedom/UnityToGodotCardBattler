@@ -36,7 +36,7 @@
               "RelativeDocumentMoniker": "Scenes\\PlayerCharacter.cs",
               "ToolTip": "F:\\Repos\\UnityToGodotCardBattler\\Scenes\\PlayerCharacter.cs",
               "RelativeToolTip": "Scenes\\PlayerCharacter.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-01T01:26:49.087Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "Scenes\\PlayerHand.cs",
               "ViewState": "AgIAADMAAAAAAAAAAAAmwFwAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-01T01:25:55.267Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-01T01:25:55.267Z"
             },
             {
               "$type": "Document",
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Scenes\\GameManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-30T03:13:02.999Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-30T03:13:02.999Z"
             }
           ]
         }

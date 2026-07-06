@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d208ia7jxfvi4" path="res://Scenes/DiscardPile.tscn" id="5_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://c4j1tc5hcjt1o" path="res://Scenes/PlayerPointer.tscn" id="6_v1gob"]
 [ext_resource type="PackedScene" uid="uid://djd3mxrcmiqvm" path="res://Scenes/PlayerCharacter.tscn" id="7_jw32o"]
+[ext_resource type="PackedScene" uid="uid://b8nb5wboa6tsk" path="res://Scenes/HealthBar.tscn" id="8_50glp"]
 
 [node name="Main" type="Node2D" unique_id=445645174 groups=["Main"]]
 script = ExtResource("1_kln2b")
@@ -27,3 +28,9 @@ position = Vector2(520, 312)
 
 [node name="PlayerCharacter" parent="." unique_id=1556509075 instance=ExtResource("7_jw32o")]
 position = Vector2(185, 238)
+
+[node name="HealthBar" parent="." unique_id=1586761528 instance=ExtResource("8_50glp")]
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 132.0
+offset_bottom = 11.0
