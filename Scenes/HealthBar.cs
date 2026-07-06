@@ -27,6 +27,7 @@ public partial class HealthBar : Control
 				GD.Print("Player is dead");
 				CurrentHealth = 0;
 				ReDrawHealthHearts();
+				//Send out event on the bus, game over.
 				return;
 			}
 
@@ -65,10 +66,10 @@ public partial class HealthBar : Control
 
 		}
 
-		if(cd.CardDamage>0)
-		{
-			HealthChanged(-cd.CardDamage);
-		}
+		// if(cd.CardDamage>0)
+		// {
+		// 	HealthChanged(-cd.CardDamage);
+		// }
 			// GD.Print("This was a heal card, simply because we looked at Card Health.");
 			//This is a horrible method for a card decision tree.
 	}
