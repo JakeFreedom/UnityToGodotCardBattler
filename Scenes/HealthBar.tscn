@@ -23,8 +23,8 @@ offset_right = 190.0
 offset_bottom = 25.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 25
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1736643190]
 layout_mode = 2

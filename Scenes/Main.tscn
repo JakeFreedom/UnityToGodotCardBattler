@@ -31,10 +31,7 @@ position = Vector2(520, 312)
 position = Vector2(185, 238)
 
 [node name="HealthBar" parent="." unique_id=1586761528 instance=ExtResource("8_50glp")]
-offset_left = 12.0
-offset_top = 11.0
-offset_right = 132.0
-offset_bottom = 11.0
+offset_right = 120.0
 
 [node name="Enemy" parent="." unique_id=1119601248 instance=ExtResource("9_vy5pj")]
-position = Vector2(451, 225)
+position = Vector2(448, 267)

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class GameManager : Node2D
 {
@@ -11,6 +12,7 @@ public partial class GameManager : Node2D
     public static GameManager Instance { get; private set; }
 
     public static Action<CardData> OnCardPlayed;
+    public static Action<int> OnDealDamage;
 
     public override void _Ready()
     {
@@ -57,6 +59,11 @@ public partial class GameManager : Node2D
     public static void CardPlayed(CardData cardData)
     {
         OnCardPlayed?.Invoke(cardData);
+    }
+
+    public static void DealDamage(int damageAmount)
+    {
+        OnDealDamage?.Invoke(damageAmount);
     }
 
 }

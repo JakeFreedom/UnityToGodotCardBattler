@@ -7,6 +7,8 @@ public partial class PlayerCharacter : Node2D
 	private Sprite2D ATTACK;
 	private AnimationPlayer thePlayer;
 
+	private CardData cardThatWasPlayed;
+
 	private GpuParticles2D healEffect;
 	public override void _Ready()
 	{
@@ -37,12 +39,14 @@ public partial class PlayerCharacter : Node2D
     }
 	public void HandleCardPlayed(CardData cardData)
 	{
+		cardThatWasPlayed = cardData;
 		//Need to make sure this was an attack card
 		if(cardData.CardDamage > 0) //This is a horrible way to handle this
 		{
 			IDLE.Visible = false;
 			ATTACK.Visible = true;
 			thePlayer.Play("Player_ATTACK");
+			//DealDamage();
 		}
 
 		if(cardData.CardHealth > 0)
@@ -54,5 +58,11 @@ public partial class PlayerCharacter : Node2D
 			healEffect.OneShot = true;
 			healEffect.Emitting = true;
 		}
+	}
+
+	private void DealDamage()
+	{
+		GD.Print("Deal damage to the enemy");
+		GameManager.DealDamage(cardThatWasPlayed.CardDamage);
 	}
 }
