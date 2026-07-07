@@ -57,12 +57,15 @@ public partial class PlayerCharacter : Node2D
 			//In the tut video they are using a heart, which we will do the same.
 			healEffect.OneShot = true;
 			healEffect.Emitting = true;
+
+			//Find our health bar and update it
+			GetNode<HealthBar>("HealthBar").Health = cardData.CardHealth;
 		}
 	}
 
 	private void DealDamage()
 	{
-		GD.Print("Deal damage to the enemy");
+		//GD.Print("Deal damage to the enemy");
 		GameManager.DealDamage(cardThatWasPlayed.CardDamage);
 	}
 }

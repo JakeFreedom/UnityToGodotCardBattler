@@ -23,7 +23,7 @@ public partial class DiscardPile : Node2D
 
     private void DiscardPile_AreaEntered()
     {
-        GD.Print("Mouse Entered the Discard Pile");
+        // GD.Print("Mouse Entered the Discard Pile");
     }
 
     public void Discard(CardData card, Card cardVisual)

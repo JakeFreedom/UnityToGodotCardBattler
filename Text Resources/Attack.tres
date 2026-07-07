@@ -7,7 +7,7 @@
 script = ExtResource("1_wigp4")
 CardName = "This is an Attack Card"
 CardDescription = "Attack for 9"
-CardDamage = 9
+CardDamage = 2
 ActivationCost = 7
 Type = 1
 AbilityImage = ExtResource("1_wi51l")

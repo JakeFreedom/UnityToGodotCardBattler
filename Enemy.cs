@@ -12,6 +12,7 @@ public partial class Enemy : Node2D
 	private AnimationPlayer animationPlayer;
 	private Sprite2D idle;
 	private Sprite2D takeHit;
+	private HealthBar healthBar;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -20,9 +21,12 @@ public partial class Enemy : Node2D
 		idle = GetNode<Sprite2D>("Visuals/Idle");
 		takeHit = GetNode<Sprite2D>("Visuals/TakeHit");
 		GameManager.OnDealDamage += TakeDamage;
+		GameManager.OnCardPlayed += HandleCardPlayed;
 		animationPlayer.AnimationFinished += AnimationFinished;
 
-		GetNode<Label>("Visuals/Health").Text = StartingHealth.ToString();
+		//GetNode<Label>("Visuals/Health").Text = StartingHealth.ToString();
+		healthBar = GetNode<HealthBar>("Visuals/HealthBar");
+		
 		currentHealth = StartingHealth;
 		
 	}
@@ -32,18 +36,20 @@ public partial class Enemy : Node2D
 	{
 	}
 
-	public void TakeDamage(int damageAmount)
+	private void TakeDamage(int damageAmount)
 	{
 		currentHealth-= damageAmount;
 		if(currentHealth<=0)
 		{
-			GD.Print("Enemy is dead");
-			GetNode<Label>("Visuals/Health").Text = "0";
+			// GD.Print("Enemy is dead");
+			// GetNode<Label>("Visuals/Health").Text = "0";
+			healthBar.Health = 0;
 			return;
 		}
 
-		GetNode<Label>("Visuals/Health").Text = currentHealth.ToString();
-		GD.Print($"I have taken {damageAmount} amount of damage.");
+		// GetNode<Label>("Visuals/Health").Text = currentHealth.ToString();
+		// GD.Print($"I have taken {damageAmount} amount of damage.");
+		healthBar.Health = -damageAmount;
 		//Play take hit animation
 		idle.Visible = false;
 		takeHit.Visible = true;
@@ -60,5 +66,11 @@ public partial class Enemy : Node2D
 			idle.Visible = true;
 			animationPlayer.Play("enemy_IDLE");
 		}
+	}
+
+	private void HandleCardPlayed(CardData cardData)
+	{
+
+
 	}
 }

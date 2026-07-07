@@ -16,7 +16,7 @@ public partial class GameManager : Node2D
 
     public override void _Ready()
     {
-        GD.Print("ready");
+        // GD.Print("ready");
     }
 
     public override void _Notification(int what)

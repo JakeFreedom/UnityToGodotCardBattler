@@ -3,6 +3,13 @@
 [ext_resource type="Script" uid="uid://c7tmhub0l61sx" path="res://Enemy.cs" id="1_s7bn3"]
 [ext_resource type="Texture2D" uid="uid://8ogmqmdipwyn" path="res://Resources/EVil Wizard 2/EVil Wizard 2/Sprites/Idle.png" id="1_tt7e2"]
 [ext_resource type="Texture2D" uid="uid://c2v18clxdpk0h" path="res://Resources/EVil Wizard 2/EVil Wizard 2/Sprites/Take hit.png" id="3_2hac7"]
+[ext_resource type="Shader" uid="uid://d0eumsy8xiaaw" path="res://Enemy.gdshader" id="3_qp131"]
+[ext_resource type="PackedScene" uid="uid://b8nb5wboa6tsk" path="res://Scenes/HealthBar.tscn" id="4_e6d4v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e6d4v"]
+shader = ExtResource("3_qp131")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_pct = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_2hac7"]
 
@@ -43,6 +50,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals/TakeHit:material:shader_parameter/flash_pct")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_2hac7"]
@@ -89,6 +108,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(10, 0), Vector2(0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/TakeHit:material:shader_parameter/flash_pct")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.10082557, 0.1691819, 0.21190459, 0.24950057),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e6d4v"]
 _data = {
@@ -104,24 +135,26 @@ height = 54.0
 [node name="Enemy" type="Node2D" unique_id=1119601248]
 script = ExtResource("1_s7bn3")
 StartingHealth = 5
-MaxHealth = 15
+MaxHealth = 10
 
 [node name="Visuals" type="Node2D" parent="." unique_id=2002793864]
 
 [node name="Idle" type="Sprite2D" parent="Visuals" unique_id=1986464176]
+visible = false
 texture = ExtResource("1_tt7e2")
 offset = Vector2(0, -42.035)
 flip_h = true
 hframes = 8
 
 [node name="TakeHit" type="Sprite2D" parent="Visuals" unique_id=623161975]
-visible = false
+material = SubResource("ShaderMaterial_e6d4v")
 texture = ExtResource("3_2hac7")
 offset = Vector2(0, -42.02)
 flip_h = true
 hframes = 3
 
 [node name="Health" type="Label" parent="Visuals" unique_id=960818760]
+visible = false
 offset_left = -67.0
 offset_top = -111.0
 offset_right = 55.0
@@ -130,6 +163,13 @@ text = "[current health]"
 label_settings = SubResource("LabelSettings_2hac7")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HealthBar" parent="Visuals" unique_id=1656277813 instance=ExtResource("4_e6d4v")]
+offset_left = -15.0
+offset_top = 3.0
+offset_right = -15.0
+offset_bottom = 3.0
+CurrentHealth = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2014443766]
 libraries/ = SubResource("AnimationLibrary_e6d4v")

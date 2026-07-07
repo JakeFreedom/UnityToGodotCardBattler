@@ -7,11 +7,8 @@
 
 [node name="HealthBar" type="Control" unique_id=1656277813]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("1_25q3q")
 CurrentHealth = 5
 MaxHealth = 10
@@ -23,12 +20,14 @@ offset_right = 190.0
 offset_bottom = 25.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1736643190]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+mouse_filter = 2
 theme = SubResource("Theme_25q3q")
 theme_override_constants/separation = 15

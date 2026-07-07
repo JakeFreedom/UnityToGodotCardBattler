@@ -58,13 +58,13 @@ public partial class HealthBar : Control
 		//the fact that it's health is greater than zero. 
 
 		//We need something in the carddata that we can concretely look at to see what type of card it is.
-		GD.Print("There was a card played, listening in the health bar");
+		// GD.Print("There was a card played, listening in the health bar");
 
-		if(cd.CardHealth>0)
-		{
-			HealthChanged(cd.CardHealth);
+		// if(cd.CardHealth>0)
+		// {
+		// 	HealthChanged(cd.CardHealth);
 
-		}
+		// }
 
 		// if(cd.CardDamage>0)
 		// {
@@ -78,5 +78,11 @@ public partial class HealthBar : Control
 	{
 		foreach(Node n in GetNode<HBoxContainer>("MarginContainer/HBoxContainer").GetChildren())
 			n.CallDeferred("queue_free");		
+	}
+
+	public int Health
+	{
+		set{HealthChanged(value);}
+		get{return CurrentHealth;}
 	}
 }
