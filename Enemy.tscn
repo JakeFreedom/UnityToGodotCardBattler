@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c2v18clxdpk0h" path="res://Resources/EVil Wizard 2/EVil Wizard 2/Sprites/Take hit.png" id="3_2hac7"]
 [ext_resource type="Shader" uid="uid://d0eumsy8xiaaw" path="res://Enemy.gdshader" id="3_qp131"]
 [ext_resource type="PackedScene" uid="uid://b8nb5wboa6tsk" path="res://Scenes/HealthBar.tscn" id="4_e6d4v"]
+[ext_resource type="Texture2D" uid="uid://da5kejiwppprh" path="res://Resources/EVil Wizard 2/EVil Wizard 2/Sprites/Death.png" id="5_6do27"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e6d4v"]
 shader = ExtResource("3_qp131")
@@ -62,6 +63,34 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Visuals/Death:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_6do27"]
+resource_name = "enemy_DEATH"
+length = 0.61
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Death:frame")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
 }
 
 [sub_resource type="Animation" id="Animation_2hac7"]
@@ -124,6 +153,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e6d4v"]
 _data = {
 &"RESET": SubResource("Animation_s7bn3"),
+&"enemy_DEATH": SubResource("Animation_6do27"),
 &"enemy_IDLE": SubResource("Animation_2hac7"),
 &"enemy_TAKEHIT": SubResource("Animation_e6d4v")
 }
@@ -134,24 +164,29 @@ height = 54.0
 
 [node name="Enemy" type="Node2D" unique_id=1119601248]
 script = ExtResource("1_s7bn3")
-StartingHealth = 5
-MaxHealth = 10
 
 [node name="Visuals" type="Node2D" parent="." unique_id=2002793864]
 
 [node name="Idle" type="Sprite2D" parent="Visuals" unique_id=1986464176]
-visible = false
 texture = ExtResource("1_tt7e2")
 offset = Vector2(0, -42.035)
 flip_h = true
 hframes = 8
 
 [node name="TakeHit" type="Sprite2D" parent="Visuals" unique_id=623161975]
+visible = false
 material = SubResource("ShaderMaterial_e6d4v")
 texture = ExtResource("3_2hac7")
 offset = Vector2(0, -42.02)
 flip_h = true
 hframes = 3
+
+[node name="Death" type="Sprite2D" parent="Visuals" unique_id=812278832]
+visible = false
+texture = ExtResource("5_6do27")
+offset = Vector2(0, -42)
+flip_h = true
+hframes = 7
 
 [node name="Health" type="Label" parent="Visuals" unique_id=960818760]
 visible = false
@@ -169,7 +204,6 @@ offset_left = -15.0
 offset_top = 3.0
 offset_right = -15.0
 offset_bottom = 3.0
-CurrentHealth = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2014443766]
 libraries/ = SubResource("AnimationLibrary_e6d4v")

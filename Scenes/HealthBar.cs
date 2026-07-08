@@ -22,14 +22,16 @@ public partial class HealthBar : Control
 
 	private void HealthChanged(int healthAmount)
 	{
+	
 		if(healthAmount + CurrentHealth <= 0)
-			{
-				GD.Print("Player is dead");
-				CurrentHealth = 0;
-				ReDrawHealthHearts();
-				//Send out event on the bus, game over.
-				return;
-			}
+		{
+
+			CurrentHealth = 0;
+			// ReDrawHealthHearts();
+			ClearHearts();
+			//Send out event on the bus, game over.
+			return;
+		}
 
 		if(healthAmount + CurrentHealth > MaxHealth)
 			CurrentHealth = MaxHealth;

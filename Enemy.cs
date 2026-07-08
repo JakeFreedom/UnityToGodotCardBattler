@@ -3,15 +3,12 @@ using System;
 
 public partial class Enemy : Node2D
 {
-	[Export]
-	private int StartingHealth;
-	[Export]
-	private int MaxHealth;
 
 	private int currentHealth;
 	private AnimationPlayer animationPlayer;
 	private Sprite2D idle;
 	private Sprite2D takeHit;
+	private Sprite2D death;
 	private HealthBar healthBar;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -20,6 +17,7 @@ public partial class Enemy : Node2D
 		animationPlayer.Play("enemy_IDLE");
 		idle = GetNode<Sprite2D>("Visuals/Idle");
 		takeHit = GetNode<Sprite2D>("Visuals/TakeHit");
+		death = GetNode<Sprite2D>("Visuals/Death");
 		GameManager.OnDealDamage += TakeDamage;
 		GameManager.OnCardPlayed += HandleCardPlayed;
 		animationPlayer.AnimationFinished += AnimationFinished;
@@ -27,7 +25,7 @@ public partial class Enemy : Node2D
 		//GetNode<Label>("Visuals/Health").Text = StartingHealth.ToString();
 		healthBar = GetNode<HealthBar>("Visuals/HealthBar");
 		
-		currentHealth = StartingHealth;
+		currentHealth = healthBar.Health;
 		
 	}
 
@@ -43,17 +41,25 @@ public partial class Enemy : Node2D
 		{
 			// GD.Print("Enemy is dead");
 			// GetNode<Label>("Visuals/Health").Text = "0";
-			healthBar.Health = 0;
-			return;
+			healthBar.Health = -damageAmount;
+			idle.Visible = false;
+			takeHit.Visible = false;
+			death.Visible = true;
+			animationPlayer.Play("enemy_DEATH");
+		
+		}
+		else
+		{
+			// GetNode<Label>("Visuals/Health").Text = currentHealth.ToString();
+			// GD.Print($"I have taken {damageAmount} amount of damage.");
+			healthBar.Health = -damageAmount;
+			//Play take hit animation
+			idle.Visible = false;
+			takeHit.Visible = true;
+			animationPlayer.Play("enemy_TAKEHIT");
+			
 		}
 
-		// GetNode<Label>("Visuals/Health").Text = currentHealth.ToString();
-		// GD.Print($"I have taken {damageAmount} amount of damage.");
-		healthBar.Health = -damageAmount;
-		//Play take hit animation
-		idle.Visible = false;
-		takeHit.Visible = true;
-		animationPlayer.Play("enemy_TAKEHIT");
 		
 
 	}
