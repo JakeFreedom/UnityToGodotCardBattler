@@ -31,5 +31,3 @@ position = Vector2(185, 238)
 
 [node name="Enemy" parent="." unique_id=1119601248 instance=ExtResource("9_vy5pj")]
 position = Vector2(448, 238)
-StartingHealth = 5
-MaxHealth = 10

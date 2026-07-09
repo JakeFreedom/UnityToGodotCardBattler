@@ -52,18 +52,10 @@ public partial class GameManager : Node2D
         } 
     }
 
+    public static void CardPlayed(CardData cardData) => OnCardPlayed?.Invoke(cardData);
+    public static void DealDamage(int damageAmount) => OnDealDamage?.Invoke(damageAmount);
     public int GetNextCardIndex { get { return CardIndex++; } }
-
     public int CardBeingDraggedByID { get {  return CardIDBeingDragged; }  set { CardIDBeingDragged = value; } }
 
-    public static void CardPlayed(CardData cardData)
-    {
-        OnCardPlayed?.Invoke(cardData);
-    }
-
-    public static void DealDamage(int damageAmount)
-    {
-        OnDealDamage?.Invoke(damageAmount);
-    }
 
 }

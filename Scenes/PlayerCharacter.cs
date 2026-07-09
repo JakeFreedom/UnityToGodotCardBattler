@@ -19,6 +19,7 @@ public partial class PlayerCharacter : Node2D
 		ATTACK = GetNode<Sprite2D>("Attack");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
+		TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
 	}
 
     private void ThePlayer_AnimationFinished(StringName animName)
@@ -32,6 +33,11 @@ public partial class PlayerCharacter : Node2D
 				break;
 		}
     }
+
+	private void HandleOnPlayerTurnEnd()
+	{
+		GD.Print("Player Turn End");
+	}
 
     public override void _ExitTree()
     {
@@ -61,6 +67,8 @@ public partial class PlayerCharacter : Node2D
 			//Find our health bar and update it
 			GetNode<HealthBar>("HealthBar").Health = cardData.CardHealth;
 		}
+		GameManager.CardPlayed(cardData);
+		TurnEvents.PlayerTurnEnd();
 	}
 
 	private void DealDamage()
