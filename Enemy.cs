@@ -18,22 +18,15 @@ public partial class Enemy : Node2D
 		idle = GetNode<Sprite2D>("Visuals/Idle");
 		takeHit = GetNode<Sprite2D>("Visuals/TakeHit");
 		death = GetNode<Sprite2D>("Visuals/Death");
-		//GameManager.OnDealDamage += TakeDamage;
-		//GameManager.OnCardPlayed += HandleCardPlayed;
 		animationPlayer.AnimationFinished += AnimationFinished;
-
-		//GetNode<Label>("Visuals/Health").Text = StartingHealth.ToString();
 		healthBar = GetNode<HealthBar>("Visuals/HealthBar");
 		
-		currentHealth = healthBar.Health;
+		
 		GameManager.Instance.GetBus().Subscribe<DealDamageEvent>(TakeDamage);
+		currentHealth = healthBar.Health;
 		
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
 
 	private void TakeDamage(DealDamageEvent e)
 	{
@@ -74,11 +67,5 @@ public partial class Enemy : Node2D
 			idle.Visible = true;
 			animationPlayer.Play("enemy_IDLE");
 		}
-	}
-
-	private void HandleCardPlayed()
-	{
-
-
 	}
 }

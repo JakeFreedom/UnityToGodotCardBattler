@@ -17,8 +17,8 @@ public partial class Card : Node2D
 	[Export] Sprite2D AbilityImage;
 	// Called when the node enters the scene tree for the first time.
 
-	[Signal]
-	public delegate void CardWasPlayedEventHandler(Card card);
+	// [Signal]
+	// public delegate void CardWasPlayedEventHandler(Card card);
 
 	private Vector2 originalScale;
 	private Vector2 originalPosition;
@@ -33,6 +33,8 @@ public partial class Card : Node2D
 
 		originalScale = GlobalScale;
 		originalPosition = GlobalPosition;
+
+		GameManager.Instance.GetBus().Subscribe<PlayZoneEnteredEvent>(OnPlayZoneEnteredEventHandler);
 	}
 
 	private void Card_MouseExited()
@@ -119,7 +121,7 @@ public partial class Card : Node2D
 
 	public string GetCardName() { return this.CardName.Text; }
 
-	public void PlayCard()
+	private void PlayCard(Card playedCard)
 	{
 		//GD.Print($"Card that was played{CardName.Text}");
 		//Signal to playerHand that this card was played
@@ -130,9 +132,13 @@ public partial class Card : Node2D
         GlobalScale = originalScale;
         GlobalPosition = originalPosition;
         //EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
-		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = this});
+		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = playedCard});
 	}
 
+	private void OnPlayZoneEnteredEventHandler(PlayZoneEnteredEvent EventData)
+	{
+		PlayCard(EventData.PlayedCard);
+	}
 	public CardData GetCardData() => this.cardData;
 	//private void MoveToDiscardZone()
 	//{

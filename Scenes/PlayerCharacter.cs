@@ -6,10 +6,10 @@ public partial class PlayerCharacter : Node2D
 	private Sprite2D IDLE;
 	private Sprite2D ATTACK;
 	private AnimationPlayer thePlayer;
-
 	private Card cardThatWasPlayed;
-
 	private GpuParticles2D healEffect;
+
+
 	public override void _Ready()
 	{
 		//GameManager.OnCardPlayed += HandleCardPlayed;
@@ -22,6 +22,11 @@ public partial class PlayerCharacter : Node2D
 		//TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
 		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(HandleCardPlayed);
 	}
+    public override void _ExitTree()
+    {
+        //GameManager.OnCardPlayed -= HandleCardPlayed;
+		GameManager.Instance.GetBus().Unsubscribe<CardPlayedEvent>(HandleCardPlayed);
+    }
 
     private void ThePlayer_AnimationFinished(StringName animName)
     {
@@ -40,12 +45,7 @@ public partial class PlayerCharacter : Node2D
 		GD.Print("Player Turn End");
 	}
 
-    public override void _ExitTree()
-    {
-        //GameManager.OnCardPlayed -= HandleCardPlayed;
-		GameManager.Instance.GetBus().Unsubscribe<CardPlayedEvent>(HandleCardPlayed);
-    }
-	public void HandleCardPlayed(CardPlayedEvent EventData)
+	private void HandleCardPlayed(CardPlayedEvent EventData)
 	{
 		
 		cardThatWasPlayed = EventData.card;
@@ -73,6 +73,7 @@ public partial class PlayerCharacter : Node2D
 		TurnEvents.PlayerTurnEnd();
 	}
 
+	//This is called at the end of the attack animation
 	private void DealDamage()
 	{
 		//GD.Print("Deal damage to the enemy");

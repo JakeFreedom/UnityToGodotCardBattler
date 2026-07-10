@@ -11,7 +11,6 @@ public partial class GameManager : Node2D
     private int CardIDBeingDragged = -1;
     private int CardIndex = 0;
     public static GameManager Instance { get; private set; }
-
     public static Action<CardData> OnCardPlayed;
     public static Action<int> OnDealDamage;
 
