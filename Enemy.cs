@@ -18,14 +18,15 @@ public partial class Enemy : Node2D
 		idle = GetNode<Sprite2D>("Visuals/Idle");
 		takeHit = GetNode<Sprite2D>("Visuals/TakeHit");
 		death = GetNode<Sprite2D>("Visuals/Death");
-		GameManager.OnDealDamage += TakeDamage;
-		GameManager.OnCardPlayed += HandleCardPlayed;
+		//GameManager.OnDealDamage += TakeDamage;
+		//GameManager.OnCardPlayed += HandleCardPlayed;
 		animationPlayer.AnimationFinished += AnimationFinished;
 
 		//GetNode<Label>("Visuals/Health").Text = StartingHealth.ToString();
 		healthBar = GetNode<HealthBar>("Visuals/HealthBar");
 		
 		currentHealth = healthBar.Health;
+		GameManager.Instance.GetBus().Subscribe<DealDamageEvent>(TakeDamage);
 		
 	}
 
@@ -34,8 +35,9 @@ public partial class Enemy : Node2D
 	{
 	}
 
-	private void TakeDamage(int damageAmount)
+	private void TakeDamage(DealDamageEvent e)
 	{
+		int damageAmount = e.DamageAmount;
 		currentHealth-= damageAmount;
 		if(currentHealth<=0)
 		{
@@ -74,7 +76,7 @@ public partial class Enemy : Node2D
 		}
 	}
 
-	private void HandleCardPlayed(CardData cardData)
+	private void HandleCardPlayed()
 	{
 
 

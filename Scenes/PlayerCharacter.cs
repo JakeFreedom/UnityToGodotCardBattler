@@ -7,19 +7,20 @@ public partial class PlayerCharacter : Node2D
 	private Sprite2D ATTACK;
 	private AnimationPlayer thePlayer;
 
-	private CardData cardThatWasPlayed;
+	private Card cardThatWasPlayed;
 
 	private GpuParticles2D healEffect;
 	public override void _Ready()
 	{
-		GameManager.OnCardPlayed += HandleCardPlayed;
+		//GameManager.OnCardPlayed += HandleCardPlayed;
 		thePlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		thePlayer.Play("Player_IDLE");
 		IDLE = GetNode<Sprite2D>("Idle");
 		ATTACK = GetNode<Sprite2D>("Attack");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
-		TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
+		//TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
+		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(HandleCardPlayed);
 	}
 
     private void ThePlayer_AnimationFinished(StringName animName)
@@ -41,13 +42,15 @@ public partial class PlayerCharacter : Node2D
 
     public override void _ExitTree()
     {
-        GameManager.OnCardPlayed -= HandleCardPlayed;
+        //GameManager.OnCardPlayed -= HandleCardPlayed;
+		GameManager.Instance.GetBus().Unsubscribe<CardPlayedEvent>(HandleCardPlayed);
     }
-	public void HandleCardPlayed(CardData cardData)
+	public void HandleCardPlayed(CardPlayedEvent EventData)
 	{
-		cardThatWasPlayed = cardData;
+		
+		cardThatWasPlayed = EventData.card;
 		//Need to make sure this was an attack card
-		if(cardData.CardDamage > 0) //This is a horrible way to handle this
+		if(EventData.card.GetCardData().CardDamage > 0) //This is a horrible way to handle this
 		{
 			IDLE.Visible = false;
 			ATTACK.Visible = true;
@@ -55,7 +58,7 @@ public partial class PlayerCharacter : Node2D
 			//DealDamage();
 		}
 
-		if(cardData.CardHealth > 0)
+		if(EventData.card.GetCardData().CardHealth > 0)
 		{
 			//GD.Print("Health Card Played");
 			//From here we will need to access the player health system
@@ -65,15 +68,15 @@ public partial class PlayerCharacter : Node2D
 			healEffect.Emitting = true;
 
 			//Find our health bar and update it
-			GetNode<HealthBar>("HealthBar").Health = cardData.CardHealth;
+			GetNode<HealthBar>("HealthBar").Health = EventData.card.GetCardData().CardHealth;
 		}
-		GameManager.CardPlayed(cardData);
 		TurnEvents.PlayerTurnEnd();
 	}
 
 	private void DealDamage()
 	{
 		//GD.Print("Deal damage to the enemy");
-		GameManager.DealDamage(cardThatWasPlayed.CardDamage);
+		// GameManager.DealDamage(cardThatWasPlayed.GetCardData().CardDamage);
+		GameManager.Instance.GetBus().Publish(new DealDamageEvent{DamageAmount = cardThatWasPlayed.GetCardData().CardDamage});
 	}
 }

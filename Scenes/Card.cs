@@ -129,7 +129,8 @@ public partial class Card : Node2D
         ZIndex = -1;
         GlobalScale = originalScale;
         GlobalPosition = originalPosition;
-        EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
+        //EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
+		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = this});
 	}
 
 	public CardData GetCardData() => this.cardData;

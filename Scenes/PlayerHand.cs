@@ -33,6 +33,8 @@ public partial class PlayerHand : Node2D
 		LoadStartingHand();
 
 		dp = GetParent().GetNode<DiscardPile>("DiscardPile") as DiscardPile;
+
+		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(OnCardPlayedEventHandler);
 		
 	}
 
@@ -77,13 +79,14 @@ public partial class PlayerHand : Node2D
 			// cardSlots[emptyIndex].CallDeferred("add_child", card);
 			//cardSlots[emptyIndex].CallDeferred("add_child", card);
 			card.SetupCard(drawnCard, GameManager.Instance.GetNextCardIndex);
-			card.CardWasPlayed -= Card_CardWasPlayed;
-            card.CardWasPlayed += Card_CardWasPlayed;
+			// card.CardWasPlayed -= Card_CardWasPlayed;
+            // card.CardWasPlayed += Card_CardWasPlayed;
 		}
 	}
 
-    private void Card_CardWasPlayed(Card card)
+    private void OnCardPlayedEventHandler(CardPlayedEvent e)
     {
+		Card card = e.card;
 		playerHand.Remove(card.GetCardData());
 		//GD.Print(playerHand.Count);
 		card.CallDeferred("queue_free");
@@ -94,7 +97,7 @@ public partial class PlayerHand : Node2D
 		//The newly drawn card will always be to the far right. If there are empty slots.
 		//ClearSlots();
 		CallDeferred("DrawToScreen");
-		GameManager.CardPlayed(card.GetCardData());
+		//GameManager.CardPlayed(card.GetCardData());
     }
 
     private int GetNextCardSlot()
