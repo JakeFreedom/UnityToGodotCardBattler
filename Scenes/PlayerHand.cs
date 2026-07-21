@@ -86,18 +86,19 @@ public partial class PlayerHand : Node2D
 
     private void OnCardPlayedEventHandler(CardPlayedEvent e)
     {
-		Card card = e.card;
-		playerHand.Remove(card.GetCardData());
-		//GD.Print(playerHand.Count);
-		card.CallDeferred("queue_free");
-		//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
-		dp.Discard(card.GetCardData(), card);
+		GD.Print($"Player Hand Card Played Event Handler {e.card.GetCardID}");
+		// Card card = e.card;
+		// playerHand.Remove(card.GetCardData());
+		// //GD.Print(playerHand.Count);
+		// card.CallDeferred("queue_free");
+		// //Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
+		// dp.Discard(card.GetCardData(), card);
 
-		//This will keep all the card to the left side of that player hand, not allowing for empty slots.
-		//The newly drawn card will always be to the far right. If there are empty slots.
-		//ClearSlots();
-		CallDeferred("DrawToScreen");
-		//GameManager.CardPlayed(card.GetCardData());
+		// //This will keep all the card to the left side of that player hand, not allowing for empty slots.
+		// //The newly drawn card will always be to the far right. If there are empty slots.
+		// //ClearSlots();
+		// CallDeferred("DrawToScreen");
+		// //GameManager.CardPlayed(card.GetCardData());
     }
 
     private int GetNextCardSlot()

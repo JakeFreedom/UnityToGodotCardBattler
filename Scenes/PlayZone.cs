@@ -25,6 +25,7 @@ public partial class PlayZone : Node2D
 
     private void PlayZone_AreaEntered(Area2D otherArea)
     {
+        GD.Print("Play Zone Entered");
         if (otherArea == null)
             return;
 

@@ -132,16 +132,15 @@ public partial class Card : Node2D
         GlobalScale = originalScale;
         GlobalPosition = originalPosition;
         //EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
-		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = playedCard});
+		//GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = playedCard});
 	}
 
 	private void OnPlayZoneEnteredEventHandler(PlayZoneEnteredEvent EventData)
 	{
+		GD.Print($"Playe Zone Entered Handler On Card {EventData.PlayedCard.GetCardID}");
 		PlayCard(EventData.PlayedCard);
 	}
 	public CardData GetCardData() => this.cardData;
-	//private void MoveToDiscardZone()
-	//{
-	//	GD.Print("Move to Discard");
-	//}
+
+	public int GetCardID{get=>this.cardID;}
 }
