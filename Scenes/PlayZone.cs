@@ -34,7 +34,9 @@ public partial class PlayZone : Node2D
             Card card = (Card)otherArea.GetParent();
             //This should be ran through the event bus
             //card.PlayCard();
+            
             GameManager.Instance.GetBus().Publish(new PlayZoneEnteredEvent{ PlayedCard = card});
+            GD.Print($"Play zone entered, call teh GameManager and let everyone else know Card ID {card.GetCardID}");
         }
         //Need to detect if this is a card or not.
         //GD.Print((otherArea.GetParent() is Card));

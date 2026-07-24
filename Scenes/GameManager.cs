@@ -16,9 +16,15 @@ public partial class GameManager : Node2D
 
     public GameManager()
     {
-        Instance = this;
-        bus = new EventBus<GameEvent>();
-        GD.Print("Game Manager Constructor called");
+        // if(Instance == null)
+        // {
+        //     Instance = this;
+        //     bus = new EventBus<GameEvent>();
+            
+
+        // }
+
+        // GD.Print("Game Manager Constructor called");
     }
 
     public override void _Notification(int what)

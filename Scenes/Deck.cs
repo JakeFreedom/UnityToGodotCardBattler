@@ -34,7 +34,8 @@ public partial class Deck : Node2D
 			int topCardIndex = cardDataList.Count- 1;
 			CardData topCard = cardDataList[topCardIndex];
 			cardDataList.RemoveAt(topCardIndex);
-			ph.AddDrawnCardToHand(topCard);
+			//Can we put an event here that takes CardData as an argument??
+			//ph.AddDrawnCardToHand(topCard);
 			DrawDeckToScreen();
 			return topCard;
 		}
