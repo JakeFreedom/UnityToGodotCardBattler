@@ -124,11 +124,11 @@ public partial class Card : Node2D
 
 	private void PlayCard(Card playedCard)
 	{
-		GD.Print($"Card that was played{playedCard.GetCardName()}");
+		GD.Print($"Card that was played {playedCard.GetCardName()}");
 		//Signal to playerHand that this card was played
 		canClick = false;
         canMouseDrag = false;
-        GameManager.Instance.CardBeingDraggedByID = -1;
+        // GameManager.Instance.CardBeingDraggedByID = -1;
         ZIndex = -1;
         GlobalScale = originalScale;
         GlobalPosition = originalPosition;

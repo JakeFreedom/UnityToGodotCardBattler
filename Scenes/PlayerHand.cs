@@ -52,7 +52,7 @@ public partial class PlayerHand : Node2D
 	//This I don't think needs any checks. Only thing right now I can think of is if we introduce the mulligan or something along those lines
 	private void LoadStartingHand()
 	{
-		for(int x = 0; x < 3; x++)
+		for(int x = 0; x < 5; x++)
 		{
 			//GD.Print($"Loading Starting Hand: Current Index {x}");
 			//Draw Five cards
@@ -82,6 +82,7 @@ public partial class PlayerHand : Node2D
 			cardSlots[emptyIndex].AddChild(card);
 			// cardSlots[emptyIndex].CallDeferred("add_child", card);
 			//cardSlots[emptyIndex].CallDeferred("add_child", card);
+			//GD.Print($"Drawn Card ID {drawnCard.ge}")
 			card.SetupCard(drawnCard, GameManager.Instance.GetNextCardIndex);
 			// card.CardWasPlayed -= Card_CardWasPlayed;
             // card.CardWasPlayed += Card_CardWasPlayed;
@@ -92,25 +93,26 @@ public partial class PlayerHand : Node2D
     {
 		//Here we will need to make sure that card being played is the card we react to, or else all the card in the hand with that same name
 		//will be discarded....
-
+		GD.Print($"Card ID {GameManager.Instance.CardBeingDraggedByID}");
 		if(GameManager.Instance.CardBeingDraggedByID == e.card.GetCardID)
 		{
 			GD.Print("The card being dragged is the correct card.");
+
+			GD.Print($"Player Hand Card Played Event Handler {GameManager.Instance.CardBeingDraggedByID} -- {e.card.GetCardID}");
+			Card card = e.card;
+			playerHand.Remove(card.GetCardData());
+			//GD.Print(playerHand.Count);
+			card.CallDeferred("queue_free");
+			//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
+			dp.Discard(card.GetCardData(), card);
+			GameManager.Instance.CardBeingDraggedByID = -1;
+
+			//This will keep all the card to the left side of that player hand, not allowing for empty slots.
+			//The newly drawn card will always be to the far right. If there are empty slots.
+			//ClearSlots();
+			CallDeferred("DrawToScreen");
+			//GameManager.CardPlayed(card.GetCardData());
 		}
-
-		GD.Print($"Player Hand Card Played Event Handler {GameManager.Instance.CardBeingDraggedByID} -- {e.card.GetCardID}");
-		Card card = e.card;
-		playerHand.Remove(card.GetCardData());
-		//GD.Print(playerHand.Count);
-		card.CallDeferred("queue_free");
-		//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
-		dp.Discard(card.GetCardData(), card);
-
-		//This will keep all the card to the left side of that player hand, not allowing for empty slots.
-		//The newly drawn card will always be to the far right. If there are empty slots.
-		//ClearSlots();
-		CallDeferred("DrawToScreen");
-		//GameManager.CardPlayed(card.GetCardData());
     }
 
     private int GetNextCardSlot()
