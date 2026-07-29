@@ -7,7 +7,7 @@
 
 [node name="Deck" type="Node2D" unique_id=118502293]
 script = ExtResource("1_y1pkx")
-cardData = Array[Resource]([ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2")])
+cardData = Array[Resource]([ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp"), ExtResource("3_aj2l2"), ExtResource("2_ug7lp")])
 cardBack = ExtResource("4_ug7lp")
 
 [node name="CardDeck" type="Node2D" parent="." unique_id=1761109268]

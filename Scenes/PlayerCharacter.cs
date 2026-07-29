@@ -6,18 +6,27 @@ public partial class PlayerCharacter : Node2D
 	private Sprite2D IDLE;
 	private Sprite2D ATTACK;
 	private AnimationPlayer thePlayer;
-
+	private Card cardThatWasPlayed;
 	private GpuParticles2D healEffect;
+
+
 	public override void _Ready()
 	{
-		GameManager.OnCardPlayed += HandleCardPlayed;
+		//GameManager.OnCardPlayed += HandleCardPlayed;
 		thePlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		thePlayer.Play("Player_IDLE");
 		IDLE = GetNode<Sprite2D>("Idle");
 		ATTACK = GetNode<Sprite2D>("Attack");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
+		//TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
+		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(HandleCardPlayed);
 	}
+    public override void _ExitTree()
+    {
+        //GameManager.OnCardPlayed -= HandleCardPlayed;
+		GameManager.Instance.GetBus().Unsubscribe<CardPlayedEvent>(HandleCardPlayed);
+    }
 
     private void ThePlayer_AnimationFinished(StringName animName)
     {
@@ -31,21 +40,25 @@ public partial class PlayerCharacter : Node2D
 		}
     }
 
-    public override void _ExitTree()
-    {
-        GameManager.OnCardPlayed -= HandleCardPlayed;
-    }
-	public void HandleCardPlayed(CardData cardData)
+	private void HandleOnPlayerTurnEnd()
 	{
+		GD.Print("Player Turn End");
+	}
+
+	private void HandleCardPlayed(CardPlayedEvent EventData)
+	{
+		
+		cardThatWasPlayed = EventData.card;
 		//Need to make sure this was an attack card
-		if(cardData.CardDamage > 0) //This is a horrible way to handle this
+		if(EventData.card.GetCardData().CardDamage > 0) //This is a horrible way to handle this
 		{
 			IDLE.Visible = false;
 			ATTACK.Visible = true;
 			thePlayer.Play("Player_ATTACK");
+			//DealDamage();
 		}
 
-		if(cardData.CardHealth > 0)
+		if(EventData.card.GetCardData().CardHealth > 0)
 		{
 			//GD.Print("Health Card Played");
 			//From here we will need to access the player health system
@@ -53,6 +66,18 @@ public partial class PlayerCharacter : Node2D
 			//In the tut video they are using a heart, which we will do the same.
 			healEffect.OneShot = true;
 			healEffect.Emitting = true;
+
+			//Find our health bar and update it
+			GetNode<HealthBar>("HealthBar").Health = EventData.card.GetCardData().CardHealth;
 		}
+		TurnEvents.PlayerTurnEnd();
+	}
+
+	//This is called at the end of the attack animation
+	private void DealDamage()
+	{
+		//GD.Print("Deal damage to the enemy");
+		// GameManager.DealDamage(cardThatWasPlayed.GetCardData().CardDamage);
+		GameManager.Instance.GetBus().Publish(new DealDamageEvent{DamageAmount = cardThatWasPlayed.GetCardData().CardDamage});
 	}
 }

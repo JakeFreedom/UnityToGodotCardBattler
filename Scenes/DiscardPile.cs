@@ -9,12 +9,12 @@ public partial class DiscardPile : Node2D
 
     private Node2D zone;
     //This will be very similar to the deck class
-    List<CardData> discardedCards;
+    List<Card> discardedCards;
     //private CardData m_cardData;
     //private Card m_cardVisuals;
     public override void _Ready()
     {
-        discardedCards = new List<CardData>();
+        discardedCards = new List<Card>();
         //Find the discard Mouse detector
 
         GetNode<Area2D>("DiscardMouseDetector").MouseEntered += DiscardPile_AreaEntered;
@@ -23,19 +23,19 @@ public partial class DiscardPile : Node2D
 
     private void DiscardPile_AreaEntered()
     {
-        GD.Print("Mouse Entered the Discard Pile");
+        // GD.Print("Mouse Entered the Discard Pile");
     }
 
     public void Discard(CardData card, Card cardVisual)
     {
         if(discardedCards == null)
-            discardedCards = new List<CardData>();
+            discardedCards = new List<Card>();
 
         //m_cardData = card; ;
         //m_cardVisuals = cardVisual;
        
 
-        discardedCards.Add(card);
+        discardedCards.Add(cardVisual);
         //GD.Print(discardedCards.Count);
         //Draw Cards to Screen
         DrawCardsToScreen();
@@ -49,13 +49,13 @@ public partial class DiscardPile : Node2D
         Node2D zone = GetNode<Node2D>("Zone");
         int loopIndex = 0;
         //Loop through discardedCards
-        foreach(CardData c in discardedCards)
+        foreach(Card c in discardedCards)
         {
             Card card = baseCard.Instantiate() as Card;
             card.GetNode<Area2D>("MouseHoverArea").ProcessMode = ProcessModeEnum.Disabled;//This will disable any card interaction while in the graveyard. <-- This will cause issues. We need to figure out how to do the raycast.
             zone.CallDeferred(MethodName.AddChild, (card));
             card.GlobalPosition = new Vector2(zone.Position.X + (loopIndex * 1.5f), zone.Position.Y + (loopIndex * 1.5f));
-            card.SetupCard(c, 0);
+            card.SetupCard(c.GetCardData(),c.GetCardID);
             loopIndex++;
             //GD.Print("Adding card to discard pile");
         }

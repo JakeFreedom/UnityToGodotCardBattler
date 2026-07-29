@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ctr2wly4l7gxt"]
+
+[ext_resource type="Script" uid="uid://ckovbx3ntipa3" path="res://Scenes/TurnSystem.cs" id="1_vtvrj"]
+
+[node name="TurnSystem" type="Node2D" unique_id=740120711]
+script = ExtResource("1_vtvrj")

@@ -4,10 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://cluf8xjkogve4" path="res://Resources/Hero Knight/Hero Knight/Sprites/Idle.png" id="1_v7sut"]
 [ext_resource type="Texture2D" uid="uid://tly6vctcg66y" path="res://Resources/Hero Knight/Hero Knight/Sprites/Attack1.png" id="2_5gnj7"]
 [ext_resource type="Texture2D" uid="uid://cy5m0ud6usjur" path="res://Graphics/heartIcon.png" id="4_mdaju"]
+[ext_resource type="PackedScene" uid="uid://b8nb5wboa6tsk" path="res://Scenes/HealthBar.tscn" id="5_r4x55"]
 
 [sub_resource type="Animation" id="Animation_mdaju"]
 resource_name = "Player_ATTACK"
-length = 0.52
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -31,6 +32,20 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(250, 0), Vector2(0, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.26666668),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"DealDamage"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_5gnj7"]
@@ -113,11 +128,13 @@ script = ExtResource("1_5gnj7")
 
 [node name="Idle" type="Sprite2D" parent="." unique_id=33032333]
 texture = ExtResource("1_v7sut")
+offset = Vector2(0, -24)
 hframes = 11
 
 [node name="Attack" type="Sprite2D" parent="." unique_id=315653023]
 visible = false
 texture = ExtResource("2_5gnj7")
+offset = Vector2(0, -24)
 hframes = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1774944272]
@@ -130,3 +147,9 @@ texture = ExtResource("4_mdaju")
 lifetime = 0.61
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_r4x55")
+
+[node name="HealthBar" parent="." unique_id=1656277813 instance=ExtResource("5_r4x55")]
+offset_left = -16.0
+offset_top = 3.0
+offset_right = -16.0
+offset_bottom = 3.0

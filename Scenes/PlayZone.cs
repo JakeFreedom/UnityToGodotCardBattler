@@ -8,6 +8,7 @@ public partial class PlayZone : Node2D
 	{
         GetNode<Area2D>("PlayZoneArea").AreaEntered += PlayZone_AreaEntered;
         GetNode<Area2D>("PlayZoneArea").AreaExited += PlayZone_AreaExited;
+        // GameManager.Instance.GetBus().Subscribe<PlayZoneEnteredEvent>(OnPlayZoneEnteredEventHandler);
 	}
 
     private void PlayZone_AreaExited(Area2D otherArea)
@@ -24,22 +25,21 @@ public partial class PlayZone : Node2D
 
     private void PlayZone_AreaEntered(Area2D otherArea)
     {
+        GD.Print("Play Zone Entered");
         if (otherArea == null)
             return;
 
         if(otherArea.GetParent() is Card)
         {
             Card card = (Card)otherArea.GetParent();
-            card.PlayCard();
-            //Card detected.
-            //GD.Print(card.Name + " " + card.GetCardName());
+            //This should be ran through the event bus
+            //card.PlayCard();
+            
+            GameManager.Instance.GetBus().Publish(new PlayZoneEnteredEvent{ PlayedCard = card});
+            GD.Print($"Play zone entered, call teh GameManager and let everyone else know Card ID {card.GetCardID}");
         }
         //Need to detect if this is a card or not.
         //GD.Print((otherArea.GetParent() is Card));
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-	{
-	}
 }

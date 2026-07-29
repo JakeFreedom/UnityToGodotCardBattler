@@ -17,14 +17,14 @@ public partial class Card : Node2D
 	[Export] Sprite2D AbilityImage;
 	// Called when the node enters the scene tree for the first time.
 
-	[Signal]
-	public delegate void CardWasPlayedEventHandler(Card card);
+	// [Signal]
+	// public delegate void CardWasPlayedEventHandler(Card card);
 
 	private Vector2 originalScale;
 	private Vector2 originalPosition;
 	private bool canMouseDrag = false;
 	private GameManager gameManager;
-	private int cardID;
+	private int cardID = -1;
 	public override void _Ready()
 	{
 
@@ -33,6 +33,8 @@ public partial class Card : Node2D
 
 		originalScale = GlobalScale;
 		originalPosition = GlobalPosition;
+
+		GameManager.Instance.GetBus().Subscribe<PlayZoneEnteredEvent>(OnPlayZoneEnteredEventHandler);
 	}
 
 	private void Card_MouseExited()
@@ -65,6 +67,7 @@ public partial class Card : Node2D
 	}
 	public void SetupCard(CardData cardData, int cardID)
 	{
+		GD.Print($"Setup Card called current card id {cardID}");
 		this.cardID = cardID;
 		this.cardData = cardData;
 		CardName.Text = cardData.CardName;
@@ -119,22 +122,30 @@ public partial class Card : Node2D
 
 	public string GetCardName() { return this.CardName.Text; }
 
-	public void PlayCard()
+	private void PlayCard(Card playedCard)
 	{
-		//GD.Print($"Card that was played{CardName.Text}");
+		GD.Print($"Card that was played {playedCard.GetCardName()}");
 		//Signal to playerHand that this card was played
 		canClick = false;
         canMouseDrag = false;
-        GameManager.Instance.CardBeingDraggedByID = -1;
+        // GameManager.Instance.CardBeingDraggedByID = -1;
         ZIndex = -1;
         GlobalScale = originalScale;
         GlobalPosition = originalPosition;
-        EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
+        //EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
+		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = playedCard});
 	}
 
+	private void OnPlayZoneEnteredEventHandler(PlayZoneEnteredEvent EventData)
+	{
+		if(GameManager.Instance.CardBeingDraggedByID == this.cardID) //Make sure the card we react to is the card being played.
+		{
+			// GD.Print($"Playe Zone Entered Handler On Card {EventData.PlayedCard.GetCardID}");
+			PlayCard(EventData.PlayedCard);
+			
+		}
+	}
 	public CardData GetCardData() => this.cardData;
-	//private void MoveToDiscardZone()
-	//{
-	//	GD.Print("Move to Discard");
-	//}
+
+	public int GetCardID{get=>this.cardID;}
 }

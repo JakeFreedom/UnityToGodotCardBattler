@@ -22,13 +22,16 @@ public partial class HealthBar : Control
 
 	private void HealthChanged(int healthAmount)
 	{
+	
 		if(healthAmount + CurrentHealth <= 0)
-			{
-				GD.Print("Player is dead");
-				CurrentHealth = 0;
-				ReDrawHealthHearts();
-				return;
-			}
+		{
+
+			CurrentHealth = 0;
+			// ReDrawHealthHearts();
+			ClearHearts();
+			//Send out event on the bus, game over.
+			return;
+		}
 
 		if(healthAmount + CurrentHealth > MaxHealth)
 			CurrentHealth = MaxHealth;
@@ -57,18 +60,18 @@ public partial class HealthBar : Control
 		//the fact that it's health is greater than zero. 
 
 		//We need something in the carddata that we can concretely look at to see what type of card it is.
-		GD.Print("There was a card played, listening in the health bar");
+		// GD.Print("There was a card played, listening in the health bar");
 
-		if(cd.CardHealth>0)
-		{
-			HealthChanged(cd.CardHealth);
+		// if(cd.CardHealth>0)
+		// {
+		// 	HealthChanged(cd.CardHealth);
 
-		}
+		// }
 
-		if(cd.CardDamage>0)
-		{
-			HealthChanged(-cd.CardDamage);
-		}
+		// if(cd.CardDamage>0)
+		// {
+		// 	HealthChanged(-cd.CardDamage);
+		// }
 			// GD.Print("This was a heal card, simply because we looked at Card Health.");
 			//This is a horrible method for a card decision tree.
 	}
@@ -77,5 +80,11 @@ public partial class HealthBar : Control
 	{
 		foreach(Node n in GetNode<HBoxContainer>("MarginContainer/HBoxContainer").GetChildren())
 			n.CallDeferred("queue_free");		
+	}
+
+	public int Health
+	{
+		set{HealthChanged(value);}
+		get{return CurrentHealth;}
 	}
 }

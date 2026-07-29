@@ -11,6 +11,7 @@ public partial class CardData : Resource
     [Export] public CardType Type;
     [Export] public CardRarity Rarity;
     [Export] public Texture2D AbilityImage;
+    
 
 
 

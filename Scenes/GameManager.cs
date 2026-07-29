@@ -1,20 +1,30 @@
 using Godot;
 using System;
+using System.Runtime.CompilerServices;
 
 public partial class GameManager : Node2D
 {
 
+    private static IEventBus<GameEvent> bus;
     private bool IsCardBeingDragged = false;
     private string CardBeingDragged = string.Empty;
     private int CardIDBeingDragged = -1;
     private int CardIndex = 0;
     public static GameManager Instance { get; private set; }
-
     public static Action<CardData> OnCardPlayed;
+    public static Action<int> OnDealDamage;
 
-    public override void _Ready()
+    public GameManager()
     {
-        GD.Print("ready");
+        // if(Instance == null)
+        // {
+        //     Instance = this;
+        //     bus = new EventBus<GameEvent>();
+            
+
+        // }
+
+        // GD.Print("Game Manager Constructor called");
     }
 
     public override void _Notification(int what)
@@ -22,6 +32,8 @@ public partial class GameManager : Node2D
         if(what == NotificationSceneInstantiated)
         {
             Instance = this;
+            bus = new EventBus<GameEvent>();
+            GD.Print("Notifiation was called");
         }
     }
 
@@ -50,13 +62,14 @@ public partial class GameManager : Node2D
         } 
     }
 
-    public int GetNextCardIndex { get { return CardIndex++; } }
-
+    //public static void CardPlayed(CardData cardData) => OnCardPlayed?.Invoke(cardData);
+    //public static void DealDamage(int damageAmount) => OnDealDamage?.Invoke(damageAmount);
+    public int GetNextCardIndex { get {GD.Print($"Card Idex{CardIndex}"); return CardIndex++; } }
     public int CardBeingDraggedByID { get {  return CardIDBeingDragged; }  set { CardIDBeingDragged = value; } }
 
-    public static void CardPlayed(CardData cardData)
-    {
-        OnCardPlayed?.Invoke(cardData);
-    }
+    public IEventBus<GameEvent> GetBus() => bus;
+
+    public bool IsPlayerHandFull {get;set;}
+
 
 }

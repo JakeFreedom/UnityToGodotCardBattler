@@ -30,40 +30,41 @@ public partial class PlayerHand : Node2D
 		}
 		//GD.Print(cardSlots.Count);
 
-		LoadStartingHand();
 
 		dp = GetParent().GetNode<DiscardPile>("DiscardPile") as DiscardPile;
+
+
+		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(OnCardPlayedEventHandler);
+		GameManager.Instance.GetBus().Subscribe<DrawCardEvent>(OnCardDrawnEventHandler);
 		
+		LoadStartingHand();
 	}
 
 	//Get Called from deck
-	public void AddDrawnCardToHand(CardData card)
+	private void AddDrawnCardToHand(CardData card)
 	{
 		//GD.Print($"Add {card.CardName} to hand.");
 		//GD.Print("Adding card to hand");
 		playerHand.Add(card);
 		CallDeferred("DrawToScreen");
+		//DrawToScreen();
 	}
 
 	//This I don't think needs any checks. Only thing right now I can think of is if we introduce the mulligan or something along those lines
 	private void LoadStartingHand()
 	{
 		for(int x = 0; x < 5; x++)
-		{
-			//GD.Print($"Loading Starting Hand: Current Index {x}");
-			//Draw Five cards
-			CardData drawnCard = deck.Draw();//This gives us a card ref
-		}
+			deck.Draw();
 
-		//Draw cards to the screen as they are drawn from the deck
-		///DrawToScreen();
+		GameManager.Instance.IsPlayerHandFull = IsHandFull;
 	}
 
 	private void DrawToScreen()
 	{
+		GD.Print("Draw Player Hand to screen");
 		ClearSlots();
-		//GD.Print("Draw to Screen");
-		//GD.Print($"Player Hand Size{playerHand.Count}");
+
+		GD.Print(playerHand.Count);
 		foreach (CardData drawnCard in playerHand)
 		{
 			Card card = baseCard.Instantiate<Card>() as Card;
@@ -76,27 +77,48 @@ public partial class PlayerHand : Node2D
 			cardSlots[emptyIndex].AddChild(card);
 			// cardSlots[emptyIndex].CallDeferred("add_child", card);
 			//cardSlots[emptyIndex].CallDeferred("add_child", card);
+			//GD.Print($"Drawn Card ID {drawnCard.ge}")
 			card.SetupCard(drawnCard, GameManager.Instance.GetNextCardIndex);
-			card.CardWasPlayed -= Card_CardWasPlayed;
-            card.CardWasPlayed += Card_CardWasPlayed;
+			// card.CardWasPlayed -= Card_CardWasPlayed;
+            // card.CardWasPlayed += Card_CardWasPlayed;
 		}
 	}
 
-    private void Card_CardWasPlayed(Card card)
+    private void OnCardPlayedEventHandler(CardPlayedEvent e)
     {
-		playerHand.Remove(card.GetCardData());
-		//GD.Print(playerHand.Count);
-		card.CallDeferred("queue_free");
-		//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
-		dp.Discard(card.GetCardData(), card);
+		//Here we will need to make sure that card being played is the card we react to, or else all the card in the hand with that same name
+		//will be discarded....
+		GD.Print($"Card ID {GameManager.Instance.CardBeingDraggedByID}");
+		if(GameManager.Instance.CardBeingDraggedByID == e.card.GetCardID)
+		{
+			GD.Print("The card being dragged is the correct card.");
 
-		//This will keep all the card to the left side of that player hand, not allowing for empty slots.
-		//The newly drawn card will always be to the far right. If there are empty slots.
-		//ClearSlots();
-		CallDeferred("DrawToScreen");
-		GameManager.CardPlayed(card.GetCardData());
+			GD.Print($"Player Hand Card Played Event Handler {GameManager.Instance.CardBeingDraggedByID} -- {e.card.GetCardID}");
+			Card card = e.card;
+			playerHand.Remove(card.GetCardData());
+			//GD.Print(playerHand.Count);
+			card.CallDeferred("queue_free");
+			//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
+			dp.Discard(card.GetCardData(), card);
+			GameManager.Instance.CardBeingDraggedByID = -1;
+
+			//This will keep all the card to the left side of that player hand, not allowing for empty slots.
+			//The newly drawn card will always be to the far right. If there are empty slots.
+			//ClearSlots();
+			CallDeferred("DrawToScreen");
+			//GameManager.CardPlayed(card.GetCardData());
+
+			GameManager.Instance.IsPlayerHandFull = IsHandFull;
+		}
     }
 
+	private void OnCardDrawnEventHandler(DrawCardEvent e)
+	{
+	
+		AddDrawnCardToHand(e.EventCardData);
+		GameManager.Instance.IsPlayerHandFull = IsHandFull;
+
+	}
     private int GetNextCardSlot()
 	{
         int emptyIndex = cardSlots.FindIndex(item => item.GetChildCount() == 0); //Get the first slot that doesn't have a child
@@ -117,7 +139,7 @@ public partial class PlayerHand : Node2D
 
 	public bool IsHandFull
 	{
-		get {  return playerHand.Count < 5; }
+		get {  return playerHand.Count >= 5; }
 	}
 	//Need a way to expose slots in use vs. max hand size.
 }
