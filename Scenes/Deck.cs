@@ -17,7 +17,7 @@ public partial class Deck : Node2D
 		cardDataList = cardData.ToList<CardData>();
 		ShuffleDeck();
 		DrawDeckToScreen();
-		ph = GetNode<PlayerHand>("../PlayerHand"); // Really need an event bus
+		//ph = GetNode<PlayerHand>("../PlayerHand"); // Really need an event bus
 
 	}
 
@@ -28,14 +28,18 @@ public partial class Deck : Node2D
 		//We also need to know if we have card slots open: IE: is our hand full.
 		//The deck doesn't need to know about the player hand, it should not care.
 		//We will have to figure this out later, for now let's not worry to much about it.
-		if(cardDataList.Count > 0  && ph.IsHandFull)//Here we will need to check to see if that player can draw cards. Don't check player hand size, we'll need to check some type of state. Because what if a card give the player and no limit hand size.
+		if(cardDataList.Count > 0 && !GameManager.Instance.IsPlayerHandFull)//  && false)//&& ph.IsHandFull)//Here we will need to check to see if that player can draw cards. Don't check player hand size, we'll need to check some type of state. Because what if a card give the player and no limit hand size.
 		{
 			//Get the top card
 			int topCardIndex = cardDataList.Count- 1;
 			CardData topCard = cardDataList[topCardIndex];
 			cardDataList.RemoveAt(topCardIndex);
+
 			//Can we put an event here that takes CardData as an argument??
 			//ph.AddDrawnCardToHand(topCard);
+
+			//DrawCardEvent <--Publish
+			GameManager.Instance.GetBus().Publish(new DrawCardEvent(topCard, new Card()));
 			DrawDeckToScreen();
 			return topCard;
 		}

@@ -69,5 +69,7 @@ public partial class GameManager : Node2D
 
     public IEventBus<GameEvent> GetBus() => bus;
 
+    public bool IsPlayerHandFull {get;set;}
+
 
 }

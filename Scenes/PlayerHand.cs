@@ -30,13 +30,14 @@ public partial class PlayerHand : Node2D
 		}
 		//GD.Print(cardSlots.Count);
 
-		LoadStartingHand();
 
 		dp = GetParent().GetNode<DiscardPile>("DiscardPile") as DiscardPile;
 
 
 		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(OnCardPlayedEventHandler);
+		GameManager.Instance.GetBus().Subscribe<DrawCardEvent>(OnCardDrawnEventHandler);
 		
+		LoadStartingHand();
 	}
 
 	//Get Called from deck
@@ -53,15 +54,9 @@ public partial class PlayerHand : Node2D
 	private void LoadStartingHand()
 	{
 		for(int x = 0; x < 5; x++)
-		{
-			//GD.Print($"Loading Starting Hand: Current Index {x}");
-			//Draw Five cards
-			// CardData drawnCard = deck.Draw();//This gives us a card ref
-			playerHand.Add(deck.Draw());
-		}
+			deck.Draw();
 
-		//Draw cards to the screen as they are drawn from the deck
-		DrawToScreen();
+		GameManager.Instance.IsPlayerHandFull = IsHandFull;
 	}
 
 	private void DrawToScreen()
@@ -112,9 +107,18 @@ public partial class PlayerHand : Node2D
 			//ClearSlots();
 			CallDeferred("DrawToScreen");
 			//GameManager.CardPlayed(card.GetCardData());
+
+			GameManager.Instance.IsPlayerHandFull = IsHandFull;
 		}
     }
 
+	private void OnCardDrawnEventHandler(DrawCardEvent e)
+	{
+	
+		AddDrawnCardToHand(e.EventCardData);
+		GameManager.Instance.IsPlayerHandFull = IsHandFull;
+
+	}
     private int GetNextCardSlot()
 	{
         int emptyIndex = cardSlots.FindIndex(item => item.GetChildCount() == 0); //Get the first slot that doesn't have a child
@@ -135,7 +139,7 @@ public partial class PlayerHand : Node2D
 
 	public bool IsHandFull
 	{
-		get {  return playerHand.Count < 5; }
+		get {  return playerHand.Count >= 5; }
 	}
 	//Need a way to expose slots in use vs. max hand size.
 }
