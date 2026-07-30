@@ -222,7 +222,6 @@ script = ExtResource("1_s7bn3")
 [node name="Visuals" type="Node2D" parent="." unique_id=2002793864]
 
 [node name="Idle" type="Sprite2D" parent="Visuals" unique_id=1986464176]
-visible = false
 texture = ExtResource("1_tt7e2")
 offset = Vector2(0, -42)
 flip_h = true
@@ -244,6 +243,7 @@ flip_h = true
 hframes = 7
 
 [node name="Attack" type="Sprite2D" parent="Visuals" unique_id=1138531478]
+visible = false
 position = Vector2(0, -42)
 texture = ExtResource("6_rvmyp")
 flip_h = true

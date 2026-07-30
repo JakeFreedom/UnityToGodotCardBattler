@@ -9,6 +9,8 @@ public partial class PlayerCharacter : Node2D
 	private Card cardThatWasPlayed;
 	private GpuParticles2D healEffect;
 
+	private HealthBar hb;
+
 
 	public override void _Ready()
 	{
@@ -19,8 +21,11 @@ public partial class PlayerCharacter : Node2D
 		ATTACK = GetNode<Sprite2D>("Attack");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
+		hb = GetNode<HealthBar>("HealthBar");
 		//TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
 		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(HandleCardPlayed);
+		GameManager.Instance.GetBus().Subscribe<DealPlayerDamageEvent>(OnDealPlayerDamageEventHandler);
+		
 	}
     public override void _ExitTree()
     {
@@ -28,6 +33,11 @@ public partial class PlayerCharacter : Node2D
 		GameManager.Instance.GetBus().Unsubscribe<CardPlayedEvent>(HandleCardPlayed);
     }
 
+	private void OnDealPlayerDamageEventHandler(DealPlayerDamageEvent e)
+	{
+		GD.Print($"Damage to the Player {e.DamageAmount}");
+		hb.Health = -e.DamageAmount;
+	}
     private void ThePlayer_AnimationFinished(StringName animName)
     {
 		switch (animName)

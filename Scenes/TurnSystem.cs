@@ -24,6 +24,7 @@ public partial class TurnSystem : Node2D
 	private void OnBossTurnStartEventHandler(BossTurnStartEvent e)
 	{
 		GD.Print("Boss turn");
+		//This really doesn't need to be here.
 	}
 
 }
