@@ -6,6 +6,7 @@
 [ext_resource type="Shader" uid="uid://d0eumsy8xiaaw" path="res://Enemy.gdshader" id="3_qp131"]
 [ext_resource type="PackedScene" uid="uid://b8nb5wboa6tsk" path="res://Scenes/HealthBar.tscn" id="4_e6d4v"]
 [ext_resource type="Texture2D" uid="uid://da5kejiwppprh" path="res://Resources/EVil Wizard 2/EVil Wizard 2/Sprites/Death.png" id="5_6do27"]
+[ext_resource type="Texture2D" uid="uid://1vxyxm6vgqcr" path="res://Resources/EVil Wizard 2/EVil Wizard 2/Sprites/Attack2.png" id="6_rvmyp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e6d4v"]
 shader = ExtResource("3_qp131")
@@ -75,6 +76,58 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Visuals/Attack:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Visuals/Attack:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -42)]
+}
+
+[sub_resource type="Animation" id="Animation_rvmyp"]
+resource_name = "enemy_ATTACK"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Attack:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.13333334, 0.2, 0.26666668, 0.33333334, 0.4, 0.46666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/Attack:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -42), Vector2(-250, -42), Vector2(0, -42)]
 }
 
 [sub_resource type="Animation" id="Animation_6do27"]
@@ -153,6 +206,7 @@ tracks/2/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e6d4v"]
 _data = {
 &"RESET": SubResource("Animation_s7bn3"),
+&"enemy_ATTACK": SubResource("Animation_rvmyp"),
 &"enemy_DEATH": SubResource("Animation_6do27"),
 &"enemy_IDLE": SubResource("Animation_2hac7"),
 &"enemy_TAKEHIT": SubResource("Animation_e6d4v")
@@ -168,8 +222,9 @@ script = ExtResource("1_s7bn3")
 [node name="Visuals" type="Node2D" parent="." unique_id=2002793864]
 
 [node name="Idle" type="Sprite2D" parent="Visuals" unique_id=1986464176]
+visible = false
 texture = ExtResource("1_tt7e2")
-offset = Vector2(0, -42.035)
+offset = Vector2(0, -42)
 flip_h = true
 hframes = 8
 
@@ -187,6 +242,12 @@ texture = ExtResource("5_6do27")
 offset = Vector2(0, -42)
 flip_h = true
 hframes = 7
+
+[node name="Attack" type="Sprite2D" parent="Visuals" unique_id=1138531478]
+position = Vector2(0, -42)
+texture = ExtResource("6_rvmyp")
+flip_h = true
+hframes = 8
 
 [node name="Health" type="Label" parent="Visuals" unique_id=960818760]
 visible = false

@@ -127,12 +127,12 @@ scale_over_velocity_max = 1.0
 script = ExtResource("1_5gnj7")
 
 [node name="Idle" type="Sprite2D" parent="." unique_id=33032333]
+visible = false
 texture = ExtResource("1_v7sut")
 offset = Vector2(0, -24)
 hframes = 11
 
 [node name="Attack" type="Sprite2D" parent="." unique_id=315653023]
-visible = false
 texture = ExtResource("2_5gnj7")
 offset = Vector2(0, -24)
 hframes = 7

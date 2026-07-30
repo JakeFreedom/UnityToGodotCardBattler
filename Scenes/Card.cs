@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Godot;
 
 
@@ -134,6 +135,9 @@ public partial class Card : Node2D
         GlobalPosition = originalPosition;
         //EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
 		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = playedCard});
+
+		//For now we will trigger out end of turn event
+		GameManager.Instance.GetBus().Publish(new PlayerTurnEndEvent{CardPlayed = playedCard});
 	}
 
 	private void OnPlayZoneEnteredEventHandler(PlayZoneEnteredEvent EventData)

@@ -23,11 +23,20 @@ public partial class Enemy : Node2D
 		
 		
 		GameManager.Instance.GetBus().Subscribe<DealDamageEvent>(TakeDamage);
+		GameManager.Instance.GetBus().Subscribe<BossTurnStartEvent>(OnBossTurnStartEventHandler);
 		currentHealth = healthBar.Health;
 		
 	}
 
 
+	private void OnBossTurnStartEventHandler(BossTurnStartEvent e)
+	{
+		//Move Boss forward, similar to the player
+		
+		//Attack animation
+		//Deal Damage to the player
+		//Return to starting position
+	}
 	private void TakeDamage(DealDamageEvent e)
 	{
 		int damageAmount = e.DamageAmount;

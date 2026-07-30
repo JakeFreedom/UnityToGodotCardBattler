@@ -1,21 +1,29 @@
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 public partial class TurnSystem : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GameManager.OnCardPlayed += HandleOnCardPlayed;
+		//GameManager.OnCardPlayed += HandleOnCardPlayed;
+		GameManager.Instance.GetBus().Subscribe<PlayerTurnEndEvent>(OnPlayerTurnEndEventHandler);
+		GameManager.Instance.GetBus().Subscribe<BossTurnStartEvent>(OnBossTurnStartEventHandler);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+
+	private async void OnPlayerTurnEndEventHandler(PlayerTurnEndEvent e)
 	{
+		
+		GD.Print("Player Turn End");
+		await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);//We'll figure something else out later
+		GameManager.Instance.GetBus().Publish(new BossTurnStartEvent());
 	}
 
-	private void HandleOnCardPlayed(CardData cd)
+	private void OnBossTurnStartEventHandler(BossTurnStartEvent e)
 	{
-		GD.Print("Turn System card played handler");
+		GD.Print("Boss turn");
 	}
+
 }
