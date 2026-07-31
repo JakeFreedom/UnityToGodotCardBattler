@@ -42,15 +42,16 @@ public partial class Enemy : Node2D
 		
 		if(!isDead)
 		{
+			GD.Print($"Player Turn {GameManager.Instance.IsPlayerTurn}");
 			idle.Visible = false;
 			attack.Visible = true;
 			animationPlayer.Play("enemy_ATTACK");
+			// GameManager.Instance.GetBus().Publish(new DealPlayerDamageEvent(2));
 			//Deal Damage to the player
 			//This is one place we can initiate the Deal Damage to Player.
 			//Should this be on the bus?
 			//If only 1 object needs to know, is it worth put on the bus???
-			
-
+			GameManager.Instance.GetBus().Publish(new EnemyTurnEndEvent());
 		}
 	}
 	private void TakeDamage(DealDamageEvent e)
@@ -87,13 +88,6 @@ public partial class Enemy : Node2D
 
 	private void AnimationFinished(StringName animation)
 	{
-		// if(animation == "enemy_TAKEHIT")
-		// {
-		// 	takeHit.Visible = false;
-		// 	idle.Visible = true;
-		// 	animationPlayer.Play("enemy_IDLE");
-		// }
-
 		switch(animation)
 		{
 			case "enemy_TAKEHIT":
@@ -103,7 +97,7 @@ public partial class Enemy : Node2D
 			break;
 
 			case "enemy_ATTACK":
-				GameManager.Instance.GetBus().Publish(new DealPlayerDamageEvent(2));
+				// GameManager.Instance.GetBus().Publish(new DealPlayerDamageEvent(2));
 				attack.Visible = false;
 				idle.Visible = true;
 				animationPlayer.Play("enemy_IDLE");
@@ -114,6 +108,11 @@ public partial class Enemy : Node2D
 				GD.Print("Animation Finished default");
 			break;
 		}
+	}
+
+	private void SendDamageToPlayer()
+	{
+		GameManager.Instance.GetBus().Publish(new DealPlayerDamageEvent(2));
 	}
 
 	public bool isDead

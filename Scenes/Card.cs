@@ -80,23 +80,27 @@ public partial class Card : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsMouseButtonPressed(MouseButton.Left) && canMouseDrag && GameManager.Instance.CardBeingDraggedByID == this.cardID)
+		//Here is where we can lock hand/each card during boss turn.
+		if(GameManager.Instance.IsPlayerTurn)
 		{
-			GlobalPosition = GetMousePosition();
-			GameManager.Instance.IsPlayerDragginCard = true;
-			GameManager.Instance.CardBeingDraggedByID = this.cardID;
-		}
-
-		if (Input.IsActionJustReleased("Left_Mouse_Button"))
-		{
-			//This is causing a little visual bug, where the card in the discard pile will not stack visually like we want. TODO: Deal with the stacking issue --- The card needs to know it's be discarded. HENCE GET THE EVENT BUS implemented.
-			GlobalPosition = originalPosition;
-
-
-			GlobalScale = originalScale;
-			if (GameManager.Instance.IsPlayerDragginCard)
+			if (Input.IsMouseButtonPressed(MouseButton.Left) && canMouseDrag && GameManager.Instance.CardBeingDraggedByID == this.cardID)
 			{
-				GameManager.Instance.IsPlayerDragginCard = false;
+				GlobalPosition = GetMousePosition();
+				GameManager.Instance.IsPlayerDragginCard = true;
+				GameManager.Instance.CardBeingDraggedByID = this.cardID;
+			}
+
+			if (Input.IsActionJustReleased("Left_Mouse_Button"))
+			{
+				//This is causing a little visual bug, where the card in the discard pile will not stack visually like we want. TODO: Deal with the stacking issue --- The card needs to know it's be discarded. HENCE GET THE EVENT BUS implemented.
+				GlobalPosition = originalPosition;
+
+
+				GlobalScale = originalScale;
+				if (GameManager.Instance.IsPlayerDragginCard)
+				{
+					GameManager.Instance.IsPlayerDragginCard = false;
+				}
 			}
 		}
 	}

@@ -33,7 +33,8 @@ public partial class GameManager : Node2D
         {
             Instance = this;
             bus = new EventBus<GameEvent>();
-            GD.Print("Notifiation was called");
+            IsPlayerTurn = true;
+            // GD.Print("Notifiation was called");
         }
     }
 
@@ -70,6 +71,7 @@ public partial class GameManager : Node2D
     public IEventBus<GameEvent> GetBus() => bus;
 
     public bool IsPlayerHandFull {get;set;}
+    public bool IsPlayerTurn{get; set;}
 
 
 }

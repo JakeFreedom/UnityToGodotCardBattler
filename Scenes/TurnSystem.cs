@@ -17,6 +17,7 @@ public partial class TurnSystem : Node2D
 	{
 		
 		GD.Print("Player Turn End");
+		GameManager.Instance.IsPlayerTurn = false;
 		await ToSignal(GetTree().CreateTimer(2.0f), SceneTreeTimer.SignalName.Timeout);//We'll figure something else out later
 		GameManager.Instance.GetBus().Publish(new BossTurnStartEvent());
 	}
