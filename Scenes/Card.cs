@@ -36,6 +36,7 @@ public partial class Card : Node2D
 		originalPosition = GlobalPosition;
 
 		GameManager.Instance.GetBus().Subscribe<PlayZoneEnteredEvent>(OnPlayZoneEnteredEventHandler);
+		this.IsInteractable = true;
 	}
 
 	private void Card_MouseExited()
@@ -81,7 +82,7 @@ public partial class Card : Node2D
 	public override void _Process(double delta)
 	{
 		//Here is where we can lock hand/each card during boss turn.
-		if(GameManager.Instance.IsPlayerTurn)
+		if(GameManager.Instance.IsPlayerTurn && IsInteractable)
 		{
 			if (Input.IsMouseButtonPressed(MouseButton.Left) && canMouseDrag && GameManager.Instance.CardBeingDraggedByID == this.cardID)
 			{
@@ -129,7 +130,7 @@ public partial class Card : Node2D
 
 	private void PlayCard(Card playedCard)
 	{
-		GD.Print($"Card that was played {playedCard.GetCardName()}");
+		//GD.Print($"Card that was played {playedCard.GetCardName()}");
 		//Signal to playerHand that this card was played
 		canClick = false;
         canMouseDrag = false;
@@ -153,7 +154,11 @@ public partial class Card : Node2D
 			
 		}
 	}
+	
+	
 	public CardData GetCardData() => this.cardData;
 
 	public int GetCardID{get=>this.cardID;}
+
+	public bool IsInteractable{get;set;}
 }

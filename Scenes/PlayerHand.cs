@@ -15,6 +15,8 @@ public partial class PlayerHand : Node2D
 	private List<CardData> playerHand = new List<CardData>();
 	private List<Node2D> cardSlots = new List<Node2D>();
 
+	// private List<Card> playersCards = new List<Card>();
+
 
 
 	private DiscardPile dp;
@@ -36,6 +38,7 @@ public partial class PlayerHand : Node2D
 
 		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(OnCardPlayedEventHandler);
 		GameManager.Instance.GetBus().Subscribe<DrawCardEvent>(OnCardDrawnEventHandler);
+		GameManager.Instance.GetBus().Subscribe<PlayerDeathEvent>(OnPlayerDeathEventHandler);
 		
 		LoadStartingHand();
 	}
@@ -88,12 +91,12 @@ public partial class PlayerHand : Node2D
     {
 		//Here we will need to make sure that card being played is the card we react to, or else all the card in the hand with that same name
 		//will be discarded....
-		GD.Print($"Card ID {GameManager.Instance.CardBeingDraggedByID}");
+		//GD.Print($"Card ID {GameManager.Instance.CardBeingDraggedByID}");
 		if(GameManager.Instance.CardBeingDraggedByID == e.card.GetCardID)
 		{
-			GD.Print("The card being dragged is the correct card.");
+			//GD.Print("The card being dragged is the correct card.");
 
-			GD.Print($"Player Hand Card Played Event Handler {GameManager.Instance.CardBeingDraggedByID} -- {e.card.GetCardID}");
+			//GD.Print($"Player Hand Card Played Event Handler {GameManager.Instance.CardBeingDraggedByID} -- {e.card.GetCardID}");
 			Card card = e.card;
 			playerHand.Remove(card.GetCardData());
 			//GD.Print(playerHand.Count);
@@ -101,6 +104,7 @@ public partial class PlayerHand : Node2D
 			//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.
 			dp.Discard(card.GetCardData(), card);
 			GameManager.Instance.CardBeingDraggedByID = -1;
+			GameManager.Instance.IsPlayerDragginCard = false;
 
 			//This will keep all the card to the left side of that player hand, not allowing for empty slots.
 			//The newly drawn card will always be to the far right. If there are empty slots.
@@ -118,6 +122,20 @@ public partial class PlayerHand : Node2D
 		AddDrawnCardToHand(e.EventCardData);
 		GameManager.Instance.IsPlayerHandFull = IsHandFull;
 
+	}
+
+	private void OnPlayerDeathEventHandler(PlayerDeathEvent e)
+	{
+		//Lock Hand
+		DisableHand();
+	}
+
+	private void DisableHand()
+	{
+		// foreach(CardData card in playerHand)
+		// {
+			
+		// }
 	}
     private int GetNextCardSlot()
 	{

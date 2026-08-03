@@ -6,6 +6,7 @@ public partial class PlayerCharacter : Node2D
 	private Sprite2D IDLE;
 	private Sprite2D ATTACK;
 	private Sprite2D TAKEHIT;
+	private Sprite2D DEATH;
 	private AnimationPlayer thePlayer;
 	private Card cardThatWasPlayed;
 	private GpuParticles2D healEffect;
@@ -21,6 +22,7 @@ public partial class PlayerCharacter : Node2D
 		IDLE = GetNode<Sprite2D>("Idle");
 		ATTACK = GetNode<Sprite2D>("Attack");
 		TAKEHIT = GetNode<Sprite2D>("TakeHit");
+		DEATH = GetNode<Sprite2D>("Death");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
 		hb = GetNode<HealthBar>("HealthBar");
@@ -48,6 +50,7 @@ public partial class PlayerCharacter : Node2D
 		IDLE.Visible = false;
 		TAKEHIT.Visible = true;
 
+
 	}
     private void ThePlayer_AnimationFinished(StringName animName)
     {
@@ -60,9 +63,20 @@ public partial class PlayerCharacter : Node2D
 				break;
 
 			case "player_TAKEHIT":
-				IDLE.Visible = true;
-				TAKEHIT.Visible = false;
-				thePlayer.Play("Player_IDLE");
+				if(hb.Health <= 0)
+				{
+					//Play death animation
+					TAKEHIT.Visible = false;
+					DEATH.Visible = true;
+					thePlayer.Play("Player_DEATH");
+					GameManager.Instance.GetBus().Publish(new PlayerDeathEvent());
+				}
+				else
+				{
+					IDLE.Visible = true;
+					TAKEHIT.Visible = false;
+					thePlayer.Play("Player_IDLE");
+				}
 				break;
 		}
     }
