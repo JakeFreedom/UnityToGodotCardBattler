@@ -22,7 +22,7 @@ public partial class Deck : Node2D
 	}
 
 
-	public new CardData Draw()
+	public new Card Draw()
 	{
 		//GD.Print("Drawing a card");
 		//We also need to know if we have card slots open: IE: is our hand full.
@@ -39,9 +39,11 @@ public partial class Deck : Node2D
 			//ph.AddDrawnCardToHand(topCard);
 
 			//DrawCardEvent <--Publish
-			GameManager.Instance.GetBus().Publish(new DrawCardEvent(topCard, new Card()));
+			Card newCard = new Card(topCard);
+			GameManager.Instance.GetBus().Publish(new DrawCardEvent(topCard, newCard));
 			DrawDeckToScreen();
-			return topCard;
+			//return topCard;
+			return newCard;
 		}
 
 		return null;
