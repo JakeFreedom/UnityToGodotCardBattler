@@ -26,6 +26,9 @@ public partial class Card : Node2D
 	private bool canMouseDrag = false;
 	private GameManager gameManager;
 	private int cardID = -1;
+
+	public Card(){}
+	public Card(CardData data){cardData = data; cardID=GameManager.Instance.GetNextCardIndex;}
 	public override void _Ready()
 	{
 
@@ -36,6 +39,7 @@ public partial class Card : Node2D
 		originalPosition = GlobalPosition;
 
 		GameManager.Instance.GetBus().Subscribe<PlayZoneEnteredEvent>(OnPlayZoneEnteredEventHandler);
+		this.IsInteractable = true;
 	}
 
 	private void Card_MouseExited()
@@ -68,7 +72,7 @@ public partial class Card : Node2D
 	}
 	public void SetupCard(CardData cardData, int cardID)
 	{
-		GD.Print($"Setup Card called current card id {cardID}");
+		// GD.Print($"Setup Card called current card id {cardID}");
 		this.cardID = cardID;
 		this.cardData = cardData;
 		CardName.Text = cardData.CardName;
@@ -80,23 +84,27 @@ public partial class Card : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsMouseButtonPressed(MouseButton.Left) && canMouseDrag && GameManager.Instance.CardBeingDraggedByID == this.cardID)
+		//Here is where we can lock hand/each card during boss turn.
+		if(GameManager.Instance.IsPlayerTurn && IsInteractable)
 		{
-			GlobalPosition = GetMousePosition();
-			GameManager.Instance.IsPlayerDragginCard = true;
-			GameManager.Instance.CardBeingDraggedByID = this.cardID;
-		}
-
-		if (Input.IsActionJustReleased("Left_Mouse_Button"))
-		{
-			//This is causing a little visual bug, where the card in the discard pile will not stack visually like we want. TODO: Deal with the stacking issue --- The card needs to know it's be discarded. HENCE GET THE EVENT BUS implemented.
-			GlobalPosition = originalPosition;
-
-
-			GlobalScale = originalScale;
-			if (GameManager.Instance.IsPlayerDragginCard)
+			if (Input.IsMouseButtonPressed(MouseButton.Left) && canMouseDrag && GameManager.Instance.CardBeingDraggedByID == this.cardID)
 			{
-				GameManager.Instance.IsPlayerDragginCard = false;
+				GlobalPosition = GetMousePosition();
+				GameManager.Instance.IsPlayerDragginCard = true;
+				GameManager.Instance.CardBeingDraggedByID = this.cardID;
+			}
+
+			if (Input.IsActionJustReleased("Left_Mouse_Button"))
+			{
+				//This is causing a little visual bug, where the card in the discard pile will not stack visually like we want. TODO: Deal with the stacking issue --- The card needs to know it's be discarded. HENCE GET THE EVENT BUS implemented.
+				GlobalPosition = originalPosition;
+
+
+				GlobalScale = originalScale;
+				if (GameManager.Instance.IsPlayerDragginCard)
+				{
+					GameManager.Instance.IsPlayerDragginCard = false;
+				}
 			}
 		}
 	}
@@ -125,7 +133,7 @@ public partial class Card : Node2D
 
 	private void PlayCard(Card playedCard)
 	{
-		GD.Print($"Card that was played {playedCard.GetCardName()}");
+		//GD.Print($"Card that was played {playedCard.GetCardName()}");
 		//Signal to playerHand that this card was played
 		canClick = false;
         canMouseDrag = false;
@@ -149,7 +157,13 @@ public partial class Card : Node2D
 			
 		}
 	}
+	
+	
 	public CardData GetCardData() => this.cardData;
+	public void SetCardData(CardData data) {this.cardData = data;}
 
 	public int GetCardID{get=>this.cardID;}
+	public void SetCardID(int cardID){this.cardID = cardID;}
+
+	public bool IsInteractable{get;set;}
 }

@@ -5,9 +5,13 @@ public partial class PlayerCharacter : Node2D
 {
 	private Sprite2D IDLE;
 	private Sprite2D ATTACK;
+	private Sprite2D TAKEHIT;
+	private Sprite2D DEATH;
 	private AnimationPlayer thePlayer;
 	private Card cardThatWasPlayed;
 	private GpuParticles2D healEffect;
+
+	private HealthBar hb;
 
 
 	public override void _Ready()
@@ -17,10 +21,16 @@ public partial class PlayerCharacter : Node2D
 		thePlayer.Play("Player_IDLE");
 		IDLE = GetNode<Sprite2D>("Idle");
 		ATTACK = GetNode<Sprite2D>("Attack");
+		TAKEHIT = GetNode<Sprite2D>("TakeHit");
+		DEATH = GetNode<Sprite2D>("Death");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
+		hb = GetNode<HealthBar>("HealthBar");
 		//TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
 		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(HandleCardPlayed);
+		GameManager.Instance.GetBus().Subscribe<DealPlayerDamageEvent>(OnDealPlayerDamageEventHandler);
+		GameManager.Instance.GetBus().Subscribe<EnemyTurnEndEvent>(OnEnemyTurnEndEventHandler);
+		
 	}
     public override void _ExitTree()
     {
@@ -28,6 +38,20 @@ public partial class PlayerCharacter : Node2D
 		GameManager.Instance.GetBus().Unsubscribe<CardPlayedEvent>(HandleCardPlayed);
     }
 
+	private void OnEnemyTurnEndEventHandler(EnemyTurnEndEvent e)
+	{
+		GameManager.Instance.IsPlayerTurn = true;
+	}
+	private void OnDealPlayerDamageEventHandler(DealPlayerDamageEvent e)
+	{
+		// GD.Print($"Damage to the Player {e.DamageAmount}");
+		thePlayer.Play("player_TAKEHIT");
+		hb.Health = -e.DamageAmount;
+		IDLE.Visible = false;
+		TAKEHIT.Visible = true;
+
+
+	}
     private void ThePlayer_AnimationFinished(StringName animName)
     {
 		switch (animName)
@@ -37,13 +61,31 @@ public partial class PlayerCharacter : Node2D
 				ATTACK.Visible = false;
 				thePlayer.Play("Player_IDLE");
 				break;
+
+			case "player_TAKEHIT":
+				if(hb.Health <= 0)
+				{
+					//Play death animation
+					TAKEHIT.Visible = false;
+					DEATH.Visible = true;
+					thePlayer.Play("Player_DEATH");
+					GameManager.Instance.GetBus().Publish(new PlayerDeathEvent());
+				}
+				else
+				{
+					IDLE.Visible = true;
+					TAKEHIT.Visible = false;
+					thePlayer.Play("Player_IDLE");
+				}
+				break;
 		}
     }
 
-	private void HandleOnPlayerTurnEnd()
-	{
-		GD.Print("Player Turn End");
-	}
+	// private void HandleOnPlayerTurnEnd()
+	// {
+	// 	GD.Print("Player Turn End!!!!");
+	// 	GameManager.Instance.IsPlayerTurn = false;
+	// }
 
 	private void HandleCardPlayed(CardPlayedEvent EventData)
 	{
@@ -55,7 +97,6 @@ public partial class PlayerCharacter : Node2D
 			IDLE.Visible = false;
 			ATTACK.Visible = true;
 			thePlayer.Play("Player_ATTACK");
-			//DealDamage();
 		}
 
 		if(EventData.card.GetCardData().CardHealth > 0)
@@ -70,7 +111,7 @@ public partial class PlayerCharacter : Node2D
 			//Find our health bar and update it
 			GetNode<HealthBar>("HealthBar").Health = EventData.card.GetCardData().CardHealth;
 		}
-		TurnEvents.PlayerTurnEnd();
+		// TurnEvents.PlayerTurnEnd();
 	}
 
 	//This is called at the end of the attack animation

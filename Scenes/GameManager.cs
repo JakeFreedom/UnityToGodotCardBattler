@@ -33,7 +33,8 @@ public partial class GameManager : Node2D
         {
             Instance = this;
             bus = new EventBus<GameEvent>();
-            GD.Print("Notifiation was called");
+            IsPlayerTurn = true;
+            // GD.Print("Notifiation was called");
         }
     }
 
@@ -64,12 +65,13 @@ public partial class GameManager : Node2D
 
     //public static void CardPlayed(CardData cardData) => OnCardPlayed?.Invoke(cardData);
     //public static void DealDamage(int damageAmount) => OnDealDamage?.Invoke(damageAmount);
-    public int GetNextCardIndex { get {GD.Print($"Card Idex{CardIndex}"); return CardIndex++; } }
+    public int GetNextCardIndex { get {return CardIndex++; } }
     public int CardBeingDraggedByID { get {  return CardIDBeingDragged; }  set { CardIDBeingDragged = value; } }
 
     public IEventBus<GameEvent> GetBus() => bus;
 
     public bool IsPlayerHandFull {get;set;}
+    public bool IsPlayerTurn{get; set;}
 
 
 }

@@ -15,7 +15,7 @@ public partial class HealthBar : Control
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GameManager.OnCardPlayed += CardPlayed;
+		// GameManager.OnCardPlayed += CardPlayed;
 		ReDrawHealthHearts();
 	}
 
@@ -54,27 +54,27 @@ public partial class HealthBar : Control
 	
 	//This is called from the gameManager script. 
 	//This doesn't seem correct at all.
-	private void CardPlayed(CardData cd)
-	{
-		//Here we would need to check to see if the card type was a of heal card. Not just
-		//the fact that it's health is greater than zero. 
+	// private void CardPlayed(CardData cd)
+	// {
+	// 	//Here we would need to check to see if the card type was a of heal card. Not just
+	// 	//the fact that it's health is greater than zero. 
 
-		//We need something in the carddata that we can concretely look at to see what type of card it is.
-		// GD.Print("There was a card played, listening in the health bar");
+	// 	//We need something in the carddata that we can concretely look at to see what type of card it is.
+	// 	// GD.Print("There was a card played, listening in the health bar");
 
-		// if(cd.CardHealth>0)
-		// {
-		// 	HealthChanged(cd.CardHealth);
+	// 	// if(cd.CardHealth>0)
+	// 	// {
+	// 	// 	HealthChanged(cd.CardHealth);
 
-		// }
+	// 	// }
 
-		// if(cd.CardDamage>0)
-		// {
-		// 	HealthChanged(-cd.CardDamage);
-		// }
-			// GD.Print("This was a heal card, simply because we looked at Card Health.");
-			//This is a horrible method for a card decision tree.
-	}
+	// 	// if(cd.CardDamage>0)
+	// 	// {
+	// 	// 	HealthChanged(-cd.CardDamage);
+	// 	// }
+	// 		// GD.Print("This was a heal card, simply because we looked at Card Health.");
+	// 		//This is a horrible method for a card decision tree.
+	// }
 
 	private void ClearHearts()
 	{

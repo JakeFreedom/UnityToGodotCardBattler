@@ -25,7 +25,7 @@ public partial class PlayZone : Node2D
 
     private void PlayZone_AreaEntered(Area2D otherArea)
     {
-        GD.Print("Play Zone Entered");
+        // GD.Print("Play Zone Entered");
         if (otherArea == null)
             return;
 
@@ -36,7 +36,7 @@ public partial class PlayZone : Node2D
             //card.PlayCard();
             
             GameManager.Instance.GetBus().Publish(new PlayZoneEnteredEvent{ PlayedCard = card});
-            GD.Print($"Play zone entered, call teh GameManager and let everyone else know Card ID {card.GetCardID}");
+            //GD.Print($"Play zone entered, call teh GameManager and let everyone else know Card ID {card.GetCardID}");
         }
         //Need to detect if this is a card or not.
         //GD.Print((otherArea.GetParent() is Card));
