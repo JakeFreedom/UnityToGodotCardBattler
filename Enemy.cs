@@ -37,12 +37,13 @@ public partial class Enemy : Node2D
 	private void OnBossTurnStartEventHandler(BossTurnStartEvent e)
 	{
 		//Move Boss forward, similar to the player
-		
+		//Draw a card
+		//Decide what card to play if possible
+
 		//Check to see if the enemy can take it's turn
 		
 		if(!isDead)
 		{
-			GD.Print($"Player Turn {GameManager.Instance.IsPlayerTurn}");
 			idle.Visible = false;
 			attack.Visible = true;
 			animationPlayer.Play("enemy_ATTACK");
