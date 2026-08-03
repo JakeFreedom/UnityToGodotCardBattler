@@ -26,6 +26,9 @@ public partial class Card : Node2D
 	private bool canMouseDrag = false;
 	private GameManager gameManager;
 	private int cardID = -1;
+
+	public Card(){}
+	public Card(CardData data){cardData = data; cardID=GameManager.Instance.GetNextCardIndex;}
 	public override void _Ready()
 	{
 
@@ -69,7 +72,7 @@ public partial class Card : Node2D
 	}
 	public void SetupCard(CardData cardData, int cardID)
 	{
-		GD.Print($"Setup Card called current card id {cardID}");
+		// GD.Print($"Setup Card called current card id {cardID}");
 		this.cardID = cardID;
 		this.cardData = cardData;
 		CardName.Text = cardData.CardName;
@@ -157,8 +160,10 @@ public partial class Card : Node2D
 	
 	
 	public CardData GetCardData() => this.cardData;
+	public void SetCardData(CardData data) {this.cardData = data;}
 
 	public int GetCardID{get=>this.cardID;}
+	public void SetCardID(int cardID){this.cardID = cardID;}
 
 	public bool IsInteractable{get;set;}
 }
