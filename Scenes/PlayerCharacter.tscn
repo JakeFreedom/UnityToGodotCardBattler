@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://tly6vctcg66y" path="res://Resources/Hero Knight/Hero Knight/Sprites/Attack1.png" id="2_5gnj7"]
 [ext_resource type="Texture2D" uid="uid://d37fofhtwg663" path="res://Resources/Hero Knight/Hero Knight/Sprites/Take Hit.png" id="4_id6tp"]
 [ext_resource type="Texture2D" uid="uid://cy5m0ud6usjur" path="res://Graphics/heartIcon.png" id="4_mdaju"]
-[ext_resource type="PackedScene" uid="uid://b8nb5wboa6tsk" path="res://Scenes/HealthBar.tscn" id="5_r4x55"]
 [ext_resource type="Texture2D" uid="uid://bcoq6xcrdf3bw" path="res://Resources/Hero Knight/Hero Knight/Sprites/Death.png" id="5_wnmxb"]
+[ext_resource type="PackedScene" uid="uid://breuwwbkhw3pq" path="res://Scenes/HealthBar2.tscn" id="8_k5f8r"]
 
 [sub_resource type="Animation" id="Animation_mdaju"]
 resource_name = "Player_ATTACK"
@@ -245,9 +245,11 @@ lifetime = 0.61
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_r4x55")
 
-[node name="HealthBar" parent="." unique_id=1656277813 instance=ExtResource("5_r4x55")]
-offset_left = -16.0
-offset_top = 3.0
-offset_right = -16.0
-offset_bottom = 3.0
-CurrentHealth = 3
+[node name="HealthBar-2" parent="." unique_id=1111159845 instance=ExtResource("8_k5f8r")]
+offset_left = -47.0
+offset_top = -73.0
+offset_right = -47.0
+offset_bottom = -73.0
+scale = Vector2(0.5, 0.5)
+StartingHealth = 15
+MaxHealth = 15

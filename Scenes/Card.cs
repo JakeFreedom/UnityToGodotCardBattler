@@ -152,7 +152,7 @@ public partial class Card : Node2D
 	{
 		if(GameManager.Instance.CardBeingDraggedByID == this.cardID) //Make sure the card we react to is the card being played.
 		{
-			// GD.Print($"Playe Zone Entered Handler On Card {EventData.PlayedCard.GetCardID}");
+			GD.Print($"Playe Zone Entered Handler On Card {EventData.PlayedCard.GetCardID}");
 			PlayCard(EventData.PlayedCard);
 			
 		}
