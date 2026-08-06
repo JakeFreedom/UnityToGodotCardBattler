@@ -91,7 +91,7 @@ public partial class PlayerHand : Node2D
     {
 		//Here we will need to make sure that card being played is the card we react to, or else all the card in the hand with that same name
 		//will be discarded....
-		// GD.Print($"Card ID {GameManager.Instance.CardBeingDraggedByID}");
+		GD.Print($"Card ID {GameManager.Instance.CardBeingDraggedByID} Incoming Event Card ID {e.card.GetCardID}");
 	
 		if(GameManager.Instance.CardBeingDraggedByID == e.card.GetCardID)
 		{
@@ -100,8 +100,9 @@ public partial class PlayerHand : Node2D
 			//GD.Print($"Player Hand Card Played Event Handler {GameManager.Instance.CardBeingDraggedByID} -- {e.card.GetCardID}");
 			Card card = e.card;
 			Card findCard = playerHand.Find(t => t.GetCardID==card.GetCardID);
+			GD.Print($"Card ID {card.GetCardID}--Find Card ID{findCard.GetCardID}");
 			playerHand.Remove(findCard);
-			card.CallDeferred("queue_free");
+			findCard.CallDeferred("queue_free");
 
 	
 			//Move to discard pile -- Need ref to discard pile -- We need the event bus right now.

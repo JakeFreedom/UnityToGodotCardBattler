@@ -28,7 +28,12 @@ public partial class Card : Node2D
 	private int cardID = -1;
 
 	public Card(){}
-	public Card(CardData data){cardData = data; cardID=GameManager.Instance.GetNextCardIndex;}
+	public Card(CardData data)
+	{
+		cardData = data; 
+		cardID=GameManager.Instance.GetNextCardIndex; 
+		GD.Print($"New Card Created {this.cardID}");
+	}
 	public override void _Ready()
 	{
 
@@ -44,6 +49,7 @@ public partial class Card : Node2D
 
 	private void Card_MouseExited()
 	{
+		GD.Print("Card Exited");
 		if (GameManager.Instance.CardBeingDraggedByID == this.cardID)
 		{
 			canMouseDrag = false;
