@@ -14,19 +14,6 @@ public partial class GameManager : Node2D
     public static Action<CardData> OnCardPlayed;
     public static Action<int> OnDealDamage;
 
-    public GameManager()
-    {
-        // if(Instance == null)
-        // {
-        //     Instance = this;
-        //     bus = new EventBus<GameEvent>();
-            
-
-        // }
-
-        // GD.Print("Game Manager Constructor called");
-    }
-
     public override void _Notification(int what)
     {
         if(what == NotificationSceneInstantiated)

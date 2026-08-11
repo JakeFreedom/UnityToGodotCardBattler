@@ -64,7 +64,7 @@ public partial class Card : Node2D
 
 	private void Card_MouseExited()
 	{
-		if (GameManager.Instance.CardBeingDraggedByID == this.cardID)
+		if (GameManager.Instance.CardBeingDraggedByID == this.cardID && IsInteractable)
 		{
 			GD.Print("Card Exited");
 			canMouseDrag = false;
@@ -77,7 +77,7 @@ public partial class Card : Node2D
 
 	private void Card_MouseEntered()
 	{
-		if (!GameManager.Instance.IsPlayerDragginCard && GameManager.Instance.CardBeingDraggedByID == -1)
+		if (!GameManager.Instance.IsPlayerDragginCard && GameManager.Instance.CardBeingDraggedByID == -1 && IsInteractable)
 		{
 			canMouseDrag = true;
 			GameManager.Instance.CardBeingDraggedByID = this.cardID;

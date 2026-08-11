@@ -127,16 +127,17 @@ public partial class PlayerHand : Node2D
 
 	private void OnPlayerDeathEventHandler(PlayerDeathEvent e)
 	{
+		GD.Print("On Player Death Event Handler");
 		//Lock Hand
 		DisableHand();
 	}
 
 	private void DisableHand()
 	{
-		// foreach(CardData card in playerHand)
-		// {
-			
-		// }
+		foreach(Card card in playerHand)
+		{
+			card.IsInteractable = false;
+		}
 	}
     private int GetNextCardSlot()
 	{

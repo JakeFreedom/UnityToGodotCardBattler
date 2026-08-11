@@ -251,5 +251,5 @@ offset_top = -73.0
 offset_right = -47.0
 offset_bottom = -73.0
 scale = Vector2(0.5, 0.5)
-StartingHealth = 15
+StartingHealth = 2
 MaxHealth = 15
