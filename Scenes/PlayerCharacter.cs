@@ -112,7 +112,7 @@ public partial class PlayerCharacter : Node2D
 
 			//Find our health bar and update it
 			//GetNode<HealthBar2>("HealthBar-2").GetCurrentHealth = EventData.card.GetCardData().CardHealth;
-			//GameManager.Instance.GetBus().Publish(new HealthChangeEvent(EventData.card.GetCardData().CardHealth, true));
+			GameManager.Instance.GetBus().Publish(new HealthChangeEvent(EventData.card.GetCardData().CardHealth, true));
 		}
 		// TurnEvents.PlayerTurnEnd();
 	}
