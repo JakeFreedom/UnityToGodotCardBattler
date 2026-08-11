@@ -1,8 +1,8 @@
 using System;
 
-public interface IEventBus<TBase> where TBase : class
+public interface IEventBus<FBase> where FBase : class
 {
-    void Subscribe<T>(Action<T> handler) where T : TBase;
-    void Unsubscribe<T>(Action<T> handler) where T : TBase;
-    void Publish<T>(T eventData) where T : TBase;
+    void Subscribe<T>(Action<T> handler) where T : FBase;
+    void Unsubscribe<T>(Action<T> handler) where T : FBase;
+    void Publish<T>(T eventData) where T : FBase;
 }

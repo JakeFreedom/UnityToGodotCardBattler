@@ -81,12 +81,7 @@ public partial class Deck : Node2D
 		{
 			newShuffledDeck.Insert(rng.RandiRange(0, newShuffledDeck.Count), card);
 		}
-
-		//GD.Print("Before Shuffle");
-		//PrintDeckLists();
 		cardDataList = newShuffledDeck;
-		//GD.Print("After Shuffle");
-		//PrintDeckLists();
 	}
 
 	private void PrintDeckLists()

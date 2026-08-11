@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://breuwwbkhw3pq"]
+
+[ext_resource type="Script" uid="uid://dyev3hgqqdd1i" path="res://HealthBar2.cs" id="1_v8blb"]
+[ext_resource type="Texture2D" uid="uid://jjnqcriour7v" path="res://Graphics/cardTitleBackGround.png" id="2_56hje"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4jvu"]
+
+[node name="HealthBar-2" type="Control" unique_id=1111159845]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v8blb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1521713273]
+scale = Vector2(2, 1)
+texture = ExtResource("2_56hje")
+centered = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Sprite2D" unique_id=528193278]
+offset_right = 450.51016
+offset_bottom = 128.0
+value = 100.0
+texture_progress = ExtResource("2_56hje")
+tint_progress = Color(0.72025174, 0.054250695, 0.25722867, 1)
+
+[node name="CurrentHealth" type="Label" parent="." unique_id=1783249608]
+layout_mode = 0
+offset_right = 193.0
+offset_bottom = 28.0
+text = "5/5"
+label_settings = SubResource("LabelSettings_h4jvu")
+horizontal_alignment = 1
+vertical_alignment = 1

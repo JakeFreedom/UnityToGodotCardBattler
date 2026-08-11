@@ -11,7 +11,7 @@ public partial class PlayerCharacter : Node2D
 	private Card cardThatWasPlayed;
 	private GpuParticles2D healEffect;
 
-	private HealthBar hb;
+	private HealthBar2 hb;
 
 
 	public override void _Ready()
@@ -25,7 +25,7 @@ public partial class PlayerCharacter : Node2D
 		DEATH = GetNode<Sprite2D>("Death");
         thePlayer.AnimationFinished += ThePlayer_AnimationFinished;
 		healEffect = GetNode<GpuParticles2D>("HealEffect");
-		hb = GetNode<HealthBar>("HealthBar");
+		hb = GetNode<HealthBar2>("HealthBar-2");
 		//TurnEvents.OnPlayerTurnEnd += HandleOnPlayerTurnEnd;
 		GameManager.Instance.GetBus().Subscribe<CardPlayedEvent>(HandleCardPlayed);
 		GameManager.Instance.GetBus().Subscribe<DealPlayerDamageEvent>(OnDealPlayerDamageEventHandler);
@@ -46,9 +46,10 @@ public partial class PlayerCharacter : Node2D
 	{
 		// GD.Print($"Damage to the Player {e.DamageAmount}");
 		thePlayer.Play("player_TAKEHIT");
-		hb.Health = -e.DamageAmount;
+		//hb.Health = -e.DamageAmount;
 		IDLE.Visible = false;
 		TAKEHIT.Visible = true;
+		GameManager.Instance.GetBus().Publish(new HealthChangeEvent(e.DamageAmount, false));
 
 
 	}
@@ -63,9 +64,10 @@ public partial class PlayerCharacter : Node2D
 				break;
 
 			case "player_TAKEHIT":
-				if(hb.Health <= 0)
+				if(hb.GetCurrentHealth <= 0)
 				{
 					//Play death animation
+					GD.Print("Death");
 					TAKEHIT.Visible = false;
 					DEATH.Visible = true;
 					thePlayer.Play("Player_DEATH");
@@ -109,7 +111,8 @@ public partial class PlayerCharacter : Node2D
 			healEffect.Emitting = true;
 
 			//Find our health bar and update it
-			GetNode<HealthBar>("HealthBar").Health = EventData.card.GetCardData().CardHealth;
+			//GetNode<HealthBar2>("HealthBar-2").GetCurrentHealth = EventData.card.GetCardData().CardHealth;
+			GameManager.Instance.GetBus().Publish(new HealthChangeEvent(EventData.card.GetCardData().CardHealth, true));
 		}
 		// TurnEvents.PlayerTurnEnd();
 	}
