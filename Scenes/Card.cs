@@ -33,9 +33,24 @@ public partial class Card : Node2D
 		cardData = data; 
 		cardID=GameManager.Instance.GetNextCardIndex; 
 		GD.Print($"New Card Created {this.cardID}");
+
+
 	}
+
+    public override void _EnterTree()
+    {
+        // GD.Print($"Card {this.cardID} has entered the tree");
+    }
+
 	public override void _Ready()
 	{
+
+		// GD.Print($"Card {this.cardID} ready method called");
+		if (GetNode<Area2D>("MouseHoverArea").HasSignal("mouse_entered"))
+		{
+			// GetNode<Area2D>("MouseHoverArea").MouseEntered -= Card_MouseEntered;
+			// GetNode<Area2D>("MouseHoverArea").MouseExited -= Card_MouseExited;
+		}
 
 		GetNode<Area2D>("MouseHoverArea").MouseEntered += Card_MouseEntered;
 		GetNode<Area2D>("MouseHoverArea").MouseExited += Card_MouseExited;
@@ -49,9 +64,9 @@ public partial class Card : Node2D
 
 	private void Card_MouseExited()
 	{
-		GD.Print("Card Exited");
 		if (GameManager.Instance.CardBeingDraggedByID == this.cardID)
 		{
+			GD.Print("Card Exited");
 			canMouseDrag = false;
 			GameManager.Instance.CardBeingDraggedByID = -1;
 			ZIndex = -1;
@@ -139,14 +154,14 @@ public partial class Card : Node2D
 
 	private void PlayCard(Card playedCard)
 	{
-		//GD.Print($"Card that was played {playedCard.GetCardName()}");
+		// GD.Print($"Card that was played {playedCard.GetCardName()}");
 		//Signal to playerHand that this card was played
 		canClick = false;
         canMouseDrag = false;
         // GameManager.Instance.CardBeingDraggedByID = -1;
-        ZIndex = -1;
-        GlobalScale = originalScale;
-        GlobalPosition = originalPosition;
+        // ZIndex = -1;
+        // GlobalScale = originalScale;
+        // GlobalPosition = originalPosition;
         //EmitSignal("CardWasPlayed", this);//<--How do we know who is listening... This make the code Domain and debugging difficult.
 		GameManager.Instance.GetBus().Publish(new CardPlayedEvent{card = playedCard});
 
@@ -156,8 +171,9 @@ public partial class Card : Node2D
 
 	private void OnPlayZoneEnteredEventHandler(PlayZoneEnteredEvent EventData)
 	{
-		if(GameManager.Instance.CardBeingDraggedByID == this.cardID) //Make sure the card we react to is the card being played.
+		if(GameManager.Instance.CardBeingDraggedByID == EventData.PlayedCard.GetCardID)//this.cardID) //Make sure the card we react to is the card being played.
 		{
+			// GetNode<Area2D>("MouseHoverArea").MouseExited -= Card_MouseExited;
 			GD.Print($"Playe Zone Entered Handler On Card {EventData.PlayedCard.GetCardID}");
 			PlayCard(EventData.PlayedCard);
 			

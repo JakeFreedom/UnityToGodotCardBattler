@@ -27,11 +27,15 @@ public partial class PlayZone : Node2D
     {
         // GD.Print("Play Zone Entered");
         if (otherArea == null)
+        {
+            GD.Print("Other Area was null");
             return;
+        }
 
         if(otherArea.GetParent() is Card)
         {
             Card card = (Card)otherArea.GetParent();
+            GD.Print($"Other Area was/is card {card.GetCardID}");
             //This should be ran through the event bus
             //card.PlayCard();
             

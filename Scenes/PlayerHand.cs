@@ -81,9 +81,6 @@ public partial class PlayerHand : Node2D
 
 			cardSlots[emptyIndex].AddChild(card);
 
-			//card.SetupCard(card.GetCardData(), card.GetCardID);//GameManager.Instance.GetNextCardIndex);
-			// card.CardWasPlayed -= Card_CardWasPlayed;
-            // card.CardWasPlayed += Card_CardWasPlayed;
 		}
 	}
 
@@ -155,6 +152,7 @@ public partial class PlayerHand : Node2D
 			if(slot.GetChildCount() > 0)
 			{
 				slot.RemoveChild(slot.GetChild(0));
+				// slot.GetChild(0).CallDeferred("queue_free");
 			}
 		}
 	}
